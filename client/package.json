@@ -12,16 +12,23 @@
   "dependencies": {
     "axios": "^0.18.0",
     "bootstrap": "^4.0.0",
+    "chart.js": "^2.8.0",
     "chartist": "^0.11.0",
+    "chartjs-plugin-streaming": "^1.8.0",
     "es6-promise": "^4.2.4",
+    "mdbvue": "^5.1.1",
     "socket.io-client": "^2.2.0",
     "uws": "^100.0.1",
     "vue": "^2.5.13",
     "vue-async-computed": "^3.6.1",
+    "vue-chartjs": "^3.4.2",
     "vue-clickaway": "^2.1.0",
+    "vue-json-viewer": "^2.1.0",
     "vue-notifyjs": "^0.3.0",
     "vue-router": "^3.0.1",
-    "vue-socket.io": "^3.0.7"
+    "vue-socket.io": "^3.0.7",
+    "vuetify": "^1.5.6",
+    "vuex": "^3.1.0"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^3.0.0-beta.9",

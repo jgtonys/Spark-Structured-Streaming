@@ -5,18 +5,19 @@ import PaperTable from "./PaperTable.vue";
 import Button from "./Button";
 
 import Card from "./Cards/Card.vue";
-import ChartCard from "./Cards/ChartCard.vue";
 import StatsCard from "./Cards/StatsCard.vue";
+
+import InputChart from "./Charts/InputChart.vue";
 
 import SidebarPlugin from "./SidebarPlugin/index";
 
 let components = {
   FormGroupInput,
   Card,
-  ChartCard,
   StatsCard,
   PaperTable,
   DropDown,
+  InputChart,
   SidebarPlugin
 };
 
@@ -25,10 +26,10 @@ export default components;
 export {
   FormGroupInput,
   Card,
-  ChartCard,
   StatsCard,
   PaperTable,
   DropDown,
   Button,
+  InputChart,
   SidebarPlugin
 };

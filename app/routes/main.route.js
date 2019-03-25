@@ -1,4 +1,5 @@
 let maincontroller = require('../controllers/main.controller.js');
+let kafkacontroller = require('../controllers/kafka.controller.js');
 
 module.exports = (app) => {
     app.route('/')
@@ -13,4 +14,12 @@ module.exports = (app) => {
       .get(maincontroller.stopSlave);
     app.route('/startApp')
       .get(maincontroller.startApp);
+    app.route('/startProducer')
+      .get(kafkacontroller.producerOn);
+    app.route('/sendMsg')
+      .post(kafkacontroller.sendMsg);
+    app.route('/startBroker')
+      .get(kafkacontroller.startBroker);
+    app.route('/stopBroker')
+      .get(kafkacontroller.stopBroker);
 }
