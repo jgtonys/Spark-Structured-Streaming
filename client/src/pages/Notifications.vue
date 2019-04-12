@@ -101,11 +101,11 @@ export default {
     notifyVue(verticalAlign, horizontalAlign) {
       const color = Math.floor(Math.random() * 4 + 1);
       this.$notify({
-        component: NotificationTemplate,
-        icon: "ti-gift",
-        horizontalAlign: horizontalAlign,
-        verticalAlign: verticalAlign,
-        type: this.type[color]
+        message: "Notification: Spark Application Started! successfully",
+        icon: "ti-light-bulb",
+        horizontalAlign: "right",
+        verticalAlign: "top",
+        type: "success"
       });
     }
   }

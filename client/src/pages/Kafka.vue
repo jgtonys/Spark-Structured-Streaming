@@ -3,41 +3,55 @@
   <div class="col-md-12">
     <div class="m-3 p-3">
       <div class="row">
+
         <div class="col-4">
-          <div class="card">
-            <div class="card-header">
-              <i :class="this.broker.icon"></i> {{this.broker.value}}
+          <stats-card>
+            <div class="icon-big" slot="header">
+              <v-btn flat fab block :color="this.broker.type" v-on:click="toggleBroker()" :loading="this.broker.loading" :disabled="this.broker.loading">
+                <v-icon size="50px">{{this.broker.icon}}</v-icon>
+              </v-btn>
             </div>
-            <div class="card-body">
-              <h5 class="card-title">{{this.broker.title}}</h5>
-              <p class="card-text">Kafka server makes broker which enables kafka producer and client communicate via topic.</p>
-              <button type="button" class="btn btn-primary" v-on:click="toggleBroker()">{{this.broker.footerText}}</button>
+            <div class="numbers" slot="content">
+              <p>{{this.broker.title}}</p>
+              {{this.broker.value}}
             </div>
-          </div>
+            <div class="stats" slot="footer">
+              <i :class="this.broker.footerIcon"></i> {{this.broker.footerText}}
+            </div>
+          </stats-card>
+        </div>
+
+        <div class="col-4" v-if="this.brokerStatus">
+          <stats-card>
+            <div class="icon-big" slot="header">
+              <v-btn flat fab block :color="this.producer.type" v-on:click="startProducer()" :loading="this.producer.loading" :disabled="this.producer.loading">
+                <v-icon size="50px">{{this.producer.icon}}</v-icon>
+              </v-btn>
+            </div>
+            <div class="numbers" slot="content">
+              <p>{{this.producer.title}}</p>
+              {{this.producer.value}}
+            </div>
+            <div class="stats" slot="footer">
+              <i :class="this.producer.footerIcon"></i> {{this.producer.footerText}}
+            </div>
+          </stats-card>
         </div>
         <div class="col-4" v-if="this.brokerStatus">
-          <div class="card">
-            <div class="card-header">
-              <i :class="this.producer.icon"></i> {{this.producer.value}}
+          <stats-card>
+            <div class="icon-big" slot="header">
+              <v-btn flat fab block :color="this.consumer.type" v-on:click="startConsumer()" :loading="this.consumer.loading" :disabled="this.consumer.loading">
+                <v-icon size="50px">{{this.consumer.icon}}</v-icon>
+              </v-btn>
             </div>
-            <div class="card-body">
-              <h5 class="card-title">{{this.producer.title}}</h5>
-              <p class="card-text">Kafka producer gives java spark structured application multiple set of inputs to calculate.</p>
-              <button type="button" class="btn btn-primary" v-on:click="startProducer()">{{this.producer.footerText}}</button>
+            <div class="numbers" slot="content">
+              <p>{{this.consumer.title}}</p>
+              {{this.consumer.value}}
             </div>
-          </div>
-        </div>
-        <div class="col-4" v-if="this.brokerStatus">
-          <div class="card">
-            <div class="card-header">
-              <i :class="this.producer.icon"></i> {{this.producer.value}}
+            <div class="stats" slot="footer">
+              <i :class="this.consumer.footerIcon"></i> {{this.consumer.footerText}}
             </div>
-            <div class="card-body">
-              <h5 class="card-title">Kafka Consumer</h5>
-              <p class="card-text">blabla</p>
-              <button type="button" class="btn btn-primary" v-on:click="startConsumer()">{{this.producer.footerText}}</button>
-            </div>
-          </div>
+          </stats-card>
         </div>
       </div>
     </div>
@@ -48,8 +62,12 @@
 import {
   mapGetters
 } from 'vuex';
+import { StatsCard } from "@/components/index";
 
 export default {
+  components: {
+    StatsCard
+  },
   data() {
     return {
 
@@ -64,12 +82,16 @@ export default {
     },
     startConsumer: function() {
       this.$socket.emit('consumer',"test3");
-    },
+      this.$store.commit('setKafkaConsumer');
+    }
   },
   computed: mapGetters({
     producer: 'getProducerValue',
+    producerStatus: 'getProducer',
     broker: 'getBrokerValue',
-    brokerStatus: 'getBroker'
+    brokerStatus: 'getBroker',
+    consumer: 'getConsumerValue',
+    consumerStatus: 'getConsumer'
   })
 };
 </script>

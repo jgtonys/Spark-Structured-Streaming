@@ -1,62 +1,82 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 import axios from 'axios';
+import {
+  Notification
+} from 'vue-notifyjs';
 
 Vue.use(Vuex);
+Vue.use(Notification);
 
 export const store = new Vuex.Store({
   state: {
     socketConnected: false,
-    sparkServer : false,
-    sparkSlave : false,
-    sparkApp : false,
-    sparkBase : "/home/jungyu/spark-2.4.0-bin-hadoop2.7/",
-    kafkaProducer : false,
+    sparkServer: false,
+    sparkSlave: false,
+    sparkApp: false,
+    sparkBase: "/home/jungyu/spark-2.4.0-bin-hadoop2.7/",
+    kafkaProducer: false,
     kafkaBroker: false,
-    producer : {
-      type: "grey",
-      icon: "ti-control-pause",
+    kafkaConsumer: false,
+    producer: {
+      type: "black",
+      icon: "pause",
       title: "Kafka-Producer",
       value: "STOPPED",
       logData: "",
       footerText: "Click to Start",
-      footerIcon: "ti-reload"
+      footerIcon: "ti-reload",
+      loading: false
     },
-    broker : {
-      type: "grey",
-      icon: "ti-control-pause",
+    consumer: {
+      type: "black",
+      icon: "pause",
+      title: "Kafka-Consumer",
+      value: "STOPPED",
+      logData: "",
+      footerText: "Click to Start",
+      footerIcon: "ti-reload",
+      loading: false
+    },
+    broker: {
+      type: "black",
+      icon: "pause",
       title: "Kafka-Broker",
       value: "STOPPED",
       logData: "",
       footerText: "Click to Start",
-      footerIcon: "ti-reload"
+      footerIcon: "ti-reload",
+      loading: false
     },
-    sparkServerValue : {
-      type: "grey",
-      icon: "ti-control-pause",
+    sparkServerValue: {
+      type: "black",
+      icon: "pause",
       title: "Spark-Sever",
       value: "STOPPED",
       logData: "",
       footerText: "Click to Start",
-      footerIcon: "ti-reload"
+      footerIcon: "ti-reload",
+      loading: false
     },
-    sparkSlaveValue : {
-      type: "grey",
-      icon: "ti-control-pause",
+    sparkSlaveValue: {
+      type: "black",
+      icon: "pause",
       title: "Spark-Slave",
       value: "STOPPED",
       logData: "",
       footerText: "Click to Start",
-      footerIcon: "ti-calendar"
+      footerIcon: "ti-calendar",
+      loading: false
     },
     sparkAppValue: {
-      type: "grey",
-      icon: "pause_circle_outline",
+      type: "black",
+      icon: "pause",
       title: "Java Application",
       value: "STOPPED",
       logData: "",
       footerText: "Click to Start",
-      footerIcon: "ti-timer"
+      footerIcon: "ti-timer",
+      loading: false
     },
     appOptions: {
       baseMethod: "bin/spark-submit",
@@ -70,267 +90,412 @@ export const store = new Vuex.Store({
       sliceTime: "10"
     },
     consumerData: {},
-    newDataSet: [{
-      label: 'Dataset 1 (linear interpolation)',
-      backgroundColor: "blue",
-      borderColor: "red",
-      fill: false,
-      lineTension: 0,
-      borderDash: [8, 4],
-      data: []
-    }, {
-      label: 'Dataset 2 (cubic interpolation)',
-      backgroundColor: "blue",
-      borderColor: "blue",
-      fill: false,
-      cubicInterpolationMode: 'monotone',
-      data: []
-    }]
+    newDataSet: [],
+    newDataSetObj: [],
+    tmpChartData: {}
   },
   getters: {
-    getSocketConnected: function (state) {
+    getSocketConnected: function(state) {
       return state.socketConnected;
     },
-    getSparkServer: function (state) {
+    getSparkServer: function(state) {
       return state.sparkServer;
     },
-    getSparkServerValue: function (state) {
+    getSparkServerValue: function(state) {
       return state.sparkServerValue;
     },
-    getSparkSlave: function (state) {
+    getSparkSlave: function(state) {
       return state.sparkSlave;
     },
-    getSparkSlaveValue: function (state) {
+    getSparkSlaveValue: function(state) {
       return state.sparkSlaveValue;
     },
-    getSparkApp: function (state) {
+    getSparkApp: function(state) {
       return state.sparkApp;
     },
-    getSparkAppValue: function (state) {
+    getSparkAppValue: function(state) {
       return state.sparkAppValue;
     },
-    getProducerValue: function (state) {
+    getProducerValue: function(state) {
       return state.producer;
     },
-    getBrokerValue: function (state) {
+    getBrokerValue: function(state) {
       return state.broker;
     },
-    getBroker: function (state) {
+    getBroker: function(state) {
       return state.kafkaBroker;
     },
-    getAppOptions: function (state) {
+    getAppOptions: function(state) {
       return state.appOptions;
     },
-    getSparkBase: function (state) {
+    getSparkBase: function(state) {
       return state.sparkBase;
     },
-    getConsumerData: function (state) {
+    getConsumerData: function(state) {
       return state.consumerData;
     },
-    getNewDataSet: function (state) {
+    getNewDataSet: function(state) {
       return state.newDataSet;
+    },
+    getNewDataSetObj: function(state) {
+      return state.newDataSetObj;
+    },
+    getConsumer: function(state) {
+      return state.kafkaConsumer;
+    },
+    getConsumerValue: function(state) {
+      return state.consumer;
+    },
+    getProducer: function(state) {
+      return state.kafkaProducer;
+    },
+    getTmpChartData: function(state) {
+      return state.tmpChartData;
     }
   },
   mutations: {
-    socketConnected: function (state, payload) {
+    socketConnected: function(state, payload) {
       return state.socketConnected = true;
     },
-    socketDisconnected: function (state, payload) {
+    socketDisconnected: function(state, payload) {
       return state.socketConnected = false;
     },
-    setSparkServerValue: function (state,payload) {
-      if(state.sparkServer) {
+    setSparkServerValue: function(state, payload) {
+      if (state.sparkServer) {
+        state.sparkServerValue.loading = true;
         state.sparkServerValue.value = "LOADING..";
         state.sparkServerValue.footerText = state.sparkServerValue.title + " loading..";
         axios.get('/startMaster')
-        .then(response => {
-          console.log(response.data);
-          if(response.data[0] == 1) {
-            state.sparkServerValue.logData = response.data[1];
-            state.sparkServerValue.icon = "ti-control-play";
-            state.sparkServerValue.type = "warning";
-            state.sparkServerValue.value = "RUNNING";
-            state.sparkServerValue.footerText = state.sparkServerValue.title + " is running";
-          }
-          else {
-            state.sparkServerValue.value = "ERROR";
-            state.sparkServerValue.footerText = "Please check error log";
-          }
-        })
-      }
-      else {
+          .then(response => {
+            console.log(response.data);
+            if (response.data[0] == 1) {
+              state.sparkServerValue.loading = false;
+              state.sparkServerValue.logData = response.data[1];
+              state.sparkServerValue.icon = "play_arrow";
+              state.sparkServerValue.type = "warning";
+              state.sparkServerValue.value = "RUNNING";
+              state.sparkServerValue.footerText = state.sparkServerValue.title + " is running";
+              Notification.notify({
+                message: "Notification: Spark Server Started Successfully!",
+                icon: "ti-light-bulb",
+                horizontalAlign: "right",
+                verticalAlign: "top",
+                type: "success"
+              });
+            } else {
+              state.sparkServerValue.loading = false;
+              state.sparkServerValue.value = "ERROR";
+              state.sparkServerValue.footerText = "Please check error log";
+              Notification.notify({
+                message: "Notification: Spark Server Starting Error!",
+                icon: "ti-light-bulb",
+                horizontalAlign: "right",
+                verticalAlign: "top",
+                type: "error"
+              });
+            }
+          })
+      } else {
+        state.sparkServerValue.loading = true;
         state.sparkServerValue.value = "LOADING..";
         state.sparkServerValue.footerText = state.sparkServerValue.title + " stopping..";
         axios.get('/stopMaster')
-        .then(response => {
-          console.log(response.data);
-          if(response.data[0] == 1) {
-            state.sparkServerValue.logData = response.data[1];
-            state.sparkServerValue.icon = "ti-control-pause";
-            state.sparkServerValue.type = "grey";
-            state.sparkServerValue.value = "STOPPED";
-            state.sparkServerValue.footerText = "Click to Start";
-          }
-        })
+          .then(response => {
+            console.log(response.data);
+            if (response.data[0] == 1) {
+              state.sparkServerValue.loading = false;
+              state.sparkServerValue.logData = response.data[1];
+              state.sparkServerValue.icon = "pause";
+              state.sparkServerValue.type = "black";
+              state.sparkServerValue.value = "STOPPED";
+              state.sparkServerValue.footerText = "Click to Start";
+              Notification.notify({
+                message: "Notification: Spark Server Stopped Successfully!",
+                icon: "ti-light-bulb",
+                horizontalAlign: "right",
+                verticalAlign: "top",
+                type: "warning"
+              });
+            }
+          })
       }
     },
-    setSparkServer: function (state,payload) {
+    setSparkServer: function(state, payload) {
       state.sparkServer = !state.sparkServer;
     },
-    setSparkSlaveValue: function (state,payload) {
-      if(state.sparkSlave) {
+    setSparkSlaveValue: function(state, payload) {
+      if (state.sparkSlave) {
+        state.sparkSlaveValue.loading = true;
         state.sparkSlaveValue.value = "LOADING..";
         state.sparkSlaveValue.footerText = state.sparkSlaveValue.title + " loading..";
         axios.post('/startSlave', {
-          master: 'jungyu:7077'
-        })
-        .then(response => {
-          console.log(response.data);
-          if(response.data[0] == 1) {
-            state.sparkSlaveValue.logData = response.data[1];
-            state.sparkSlaveValue.icon = "ti-control-play";
-            state.sparkSlaveValue.type = "success";
-            state.sparkSlaveValue.value = "RUNNING";
-            state.sparkSlaveValue.footerText = state.sparkSlaveValue.title + " is running";
-          }
-          else {
-            state.sparkSlaveValue.value = "ERROR";
-            state.sparkSlaveValue.footerText = "Please check error log";
-          }
-        })
-      }
-      else {
+            master: 'jungyu:7077'
+          })
+          .then(response => {
+            console.log(response.data);
+            if (response.data[0] == 1) {
+              state.sparkSlaveValue.loading = false;
+              state.sparkSlaveValue.logData = response.data[1];
+              state.sparkSlaveValue.icon = "play_arrow";
+              state.sparkSlaveValue.type = "success";
+              state.sparkSlaveValue.value = "RUNNING";
+              state.sparkSlaveValue.footerText = state.sparkSlaveValue.title + " is running";
+              Notification.notify({
+                message: "Notification: Spark Slave Started Successfully!",
+                icon: "ti-light-bulb",
+                horizontalAlign: "right",
+                verticalAlign: "top",
+                type: "success"
+              });
+            } else {
+              state.sparkSlaveValue.loading = false;
+              state.sparkSlaveValue.value = "ERROR";
+              state.sparkSlaveValue.footerText = "Please check error log";
+              Notification.notify({
+                message: "Notification: Spark Slave Starting Error!",
+                icon: "ti-light-bulb",
+                horizontalAlign: "right",
+                verticalAlign: "top",
+                type: "error"
+              });
+            }
+          })
+      } else {
+        state.sparkSlaveValue.loading = true;
         state.sparkSlaveValue.value = "LOADING..";
         state.sparkSlaveValue.footerText = state.sparkSlaveValue.title + " stopping..";
         axios.get('/stopSlave')
-        .then(response => {
-          console.log(response.data);
-          if(response.data[0] == 1) {
-            state.sparkSlaveValue.logData = response.data[1];
-            state.sparkSlaveValue.icon = "ti-control-pause";
-            state.sparkSlaveValue.type = "grey";
-            state.sparkSlaveValue.value = "STOPPED";
-            state.sparkSlaveValue.footerText = "Click to Start";
-          }
-        })
+          .then(response => {
+            console.log(response.data);
+            if (response.data[0] == 1) {
+              state.sparkSlaveValue.loading = false;
+              state.sparkSlaveValue.logData = response.data[1];
+              state.sparkSlaveValue.icon = "pause";
+              state.sparkSlaveValue.type = "black";
+              state.sparkSlaveValue.value = "STOPPED";
+              state.sparkSlaveValue.footerText = "Click to Start";
+              Notification.notify({
+                message: "Notification: Spark Slave Stopped Successfully!",
+                icon: "ti-light-bulb",
+                horizontalAlign: "right",
+                verticalAlign: "top",
+                type: "warning"
+              });
+            }
+          })
       }
     },
-    setSparkSlave: function (state,payload) {
+    setSparkSlave: function(state, payload) {
       state.sparkSlave = !state.sparkSlave;
     },
-    setSparkAppValue: function (state,payload) {
-      if(state.sparkApp) {
+    setSparkAppValue: function(state, payload) {
+      if (state.sparkApp) {
         state.sparkAppValue.value = "LOADING..";
         state.sparkAppValue.footerText = state.sparkAppValue.title + " loading..";
-        state.sparkAppValue.icon = "ti-control-play";
-        state.sparkAppValue.type = "danger";
+        state.sparkAppValue.icon = "play_arrow";
+        state.sparkAppValue.type = "black";
         state.sparkAppValue.value = "RUNNING";
         state.sparkAppValue.footerText = state.sparkAppValue.title + " is running";
-      }
-      else {
-        state.sparkAppValue.icon = "ti-control-pause";
-        state.sparkAppValue.type = "grey";
+      } else {
+        state.sparkAppValue.icon = "pause";
+        state.sparkAppValue.type = "black";
         state.sparkAppValue.value = "STOPPED";
         state.sparkAppValue.footerText = "Click to Start";
       }
     },
-    setSparkApp: function (state,payload) {
+    setSparkApp: function(state, payload) {
       state.sparkApp = !state.sparkApp;
     },
-    updateAppLog: function (state,payload) {
+    updateAppLog: function(state, payload) {
       state.sparkAppValue.logData = state.sparkAppValue.logData + '\n' + payload.value;
-      console.log("blabla : " + payload.value);
     },
-    setProducer: function (state,payload) {
+    setProducer: function(state, payload) {
       state.kafkaProducer = !state.kafkaProducer;
     },
-    setProducerValue: function (state,payload) {
+    setProducerValue: function(state, payload) {
+      state.producer.loading = true;
+      state.producer.value = "LOADING..";
+      state.producer.footerText = state.producer.title + " loading..";
       axios.get('/startProducer')
-      .then(response => {
-        console.log(response.data);
-        if(response.data == "ready") {
-          state.producer.value = "LOADING..";
-          state.producer.footerText = state.producer.title + " loading..";
-          state.producer.icon = "ti-control-play";
-          state.producer.type = "danger";
-          state.producer.value = "RUNNING";
-          state.producer.footerText = state.producer.title + " is running";
-        }
-      })
+        .then(response => {
+          console.log(response.data);
+          if (response.data == "ready") {
+            state.producer.loading = false;
+            state.producer.icon = "play_arrow";
+            state.producer.type = "black";
+            state.producer.value = "RUNNING";
+            state.producer.footerText = state.producer.title + " is running";
+            Notification.notify({
+              message: "Notification: Kafka Producer Started Successfully!",
+              icon: "ti-light-bulb",
+              horizontalAlign: "right",
+              verticalAlign: "top",
+              type: "success"
+            });
+          }
+        })
     },
-    updateProducerMsg: function (state,payload) {
+    updateProducerMsg: function(state, payload) {
       state.producer.logData = state.producer.logData + '\n' + payload.value;
     },
-    setBroker: function (state,payload) {
+    setBroker: function(state, payload) {
       state.kafkaBroker = !state.kafkaBroker;
     },
-    setBrokerValue: function (state,payload) {
-      if(state.kafkaBroker) {
+    setBrokerValue: function(state, payload) {
+      if (state.kafkaBroker) {
+        state.broker.loading = true;
         state.broker.value = "LOADING..";
         state.broker.footerText = state.broker.title + " loading..";
-        axios.get('/startBroker');
-        state.broker.icon = "ti-control-play";
-        state.broker.type = "success";
-        state.broker.value = "RUNNING";
-        state.broker.footerText = state.broker.title + " is running";
-      }
-      else {
+        axios.get('/startBroker')
+          .then(response => {
+            console.log(response.data);
+            if (response.data == "ready") {
+              state.broker.loading = false;
+              state.broker.icon = "play_arrow";
+              state.broker.type = "success";
+              state.broker.value = "RUNNING";
+              state.broker.footerText = state.broker.title + " is running";
+              Notification.notify({
+                message: "Notification: Kafka Broker Started Successfully!",
+                icon: "ti-light-bulb",
+                horizontalAlign: "right",
+                verticalAlign: "top",
+                type: "success"
+              });
+            }
+          });
+      } else {
+        state.broker.loading = true;
         state.broker.value = "LOADING..";
         state.broker.footerText = state.broker.title + " stopping..";
-        axios.get('/stopBroker');
-        state.broker.icon = "ti-control-pause";
-        state.broker.type = "grey";
-        state.broker.value = "STOPPED";
-        state.broker.footerText = "Click to Start";
-
+        axios.get('/stopBroker')
+          .then(response => {
+            console.log(response.data);
+            if (response.data[0] == 1) {
+              state.broker.loading = false;
+              state.broker.icon = "pause";
+              state.broker.type = "black";
+              state.broker.value = "STOPPED";
+              state.broker.footerText = "START";
+              Notification.notify({
+                message: "Notification: Kafka Broker Stopped Successfully!",
+                icon: "ti-light-bulb",
+                horizontalAlign: "right",
+                verticalAlign: "top",
+                type: "warning"
+              });
+            } else {
+              Notification.notify({
+                message: "Notification: Kafka Broker Stopping Error!",
+                icon: "ti-light-bulb",
+                horizontalAlign: "right",
+                verticalAlign: "top",
+                type: "error"
+              });
+            }
+          });
       }
     },
-    updateAppOption: function(state,payload) {
-      if(payload.key == 0) state.appOptions.baseMethod = payload.value;
-      else if(payload.key == 1) state.appOptions.packages = payload.value;
-      else if(payload.key == 2) state.appOptions.master = payload.value;
-      else if(payload.key == 3) state.appOptions.class = payload.value;
-      else if(payload.key == 4) state.appOptions.targetJar = payload.value;
-      else if(payload.key == 5) state.appOptions.host = payload.value;
-      else if(payload.key == 6) state.appOptions.port = payload.value;
-      else if(payload.key == 7) state.appOptions.windowTime = payload.value;
-      else if(payload.key == 8) state.appOptions.sliceTime = payload.value;
+    updateAppOption: function(state, payload) {
+      if (payload.key == 0) state.appOptions.baseMethod = payload.value;
+      else if (payload.key == 1) state.appOptions.packages = payload.value;
+      else if (payload.key == 2) state.appOptions.master = payload.value;
+      else if (payload.key == 3) state.appOptions.class = payload.value;
+      else if (payload.key == 4) state.appOptions.targetJar = payload.value;
+      else if (payload.key == 5) state.appOptions.host = payload.value;
+      else if (payload.key == 6) state.appOptions.port = payload.value;
+      else if (payload.key == 7) state.appOptions.windowTime = payload.value;
+      else if (payload.key == 8) state.appOptions.sliceTime = payload.value;
     },
-    updateSparkBase: function(state,payload) {
+    updateSparkBase: function(state, payload) {
       state.sparkBase = payload.value;
     },
-    updateConsumerData: function(state,payload) {
+    updateConsumerData: function(state, payload) {
       state.consumerData = payload.value;
     },
-    updateNewDataSet: function(state,payload) {
-      state.newDataSet[0].data.push(payload.value);
-      console.log(state.newDataSet[0].data);
+    updateNewDataSet: function(state, payload) {
+      console.log(payload.value.slice(0, 20));
+      if (payload.value.slice(0, 20) == "Query made progress:") {
+        var obj = JSON.parse(payload.value.slice(21));
+        console.log(obj);
+        state.newDataSet.push({
+          x: Date.now(),
+          y: obj.numInputRows
+        });
+        state.newDataSetObj.push(obj);
+      }
+
+    },
+    setKafkaConsumer: function(state, payload) {
+      state.kafkaConsumer = !state.kafkaConsumer;
+      if (state.kafkaConsumer) {
+        state.consumer.icon = "play_arrow";
+        state.consumer.type = "success";
+        state.consumer.value = "RUNNING";
+        state.consumer.footerText = state.consumer.title + " is running";
+        Notification.notify({
+          message: "Notification: Kafka Consumer Started Successfully!",
+          icon: "ti-light-bulb",
+          horizontalAlign: "right",
+          verticalAlign: "top",
+          type: "success"
+        });
+      } else {
+        state.consumer.icon = "pause";
+        state.consumer.type = "black";
+        state.consumer.value = "STOPPED";
+        state.consumer.footerText = "START";
+        Notification.notify({
+          message: "Notification: Kafka Consumer Stopped Successfully!",
+          icon: "ti-light-bulb",
+          horizontalAlign: "right",
+          verticalAlign: "top",
+          type: "warning"
+        });
+      }
+    },
+    setTmpChartData: function(state,payload) {
+      state.tmpChartData = payload.data;
     }
   },
   actions: {
-    connectSocket ({ commit }) {
+    connectSocket({
+      commit
+    }) {
       commit('socketConnected');
     },
-    disconnectSocket ({ commit }) {
+    disconnectSocket({
+      commit
+    }) {
       commit('socketDisconnected');
     },
-    toggleSparkServer ({ commit }) {
+    toggleSparkServer({
+      commit
+    }) {
       commit('setSparkServer');
       commit('setSparkServerValue');
     },
-    toggleSparkSlave ({ commit }) {
+    toggleSparkSlave({
+      commit
+    }) {
       commit('setSparkSlave');
       commit('setSparkSlaveValue');
     },
-    toggleSparkApp ({ commit }) {
+    toggleSparkApp({
+      commit
+    }) {
       commit('setSparkApp');
       commit('setSparkAppValue');
     },
-    startProducer ({ commit }) {
+    startProducer({
+      commit
+    }) {
       commit('setProducer');
       commit('setProducerValue');
     },
-    toggleBroker ({ commit }) {
+    toggleBroker({
+      commit
+    }) {
       commit('setBroker');
       commit('setBrokerValue');
     }

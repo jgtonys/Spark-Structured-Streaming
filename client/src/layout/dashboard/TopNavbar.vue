@@ -66,6 +66,22 @@ export default {
       activeNotifications: false
     };
   },
+  sockets: {
+    connect() {
+      this.$store.dispatch('connectSocket');
+    },
+    disconnect() {
+      this.$store.dispatch('connectSocket');
+    },
+    test(data) {
+      this.$store.commit('updateAppLog', {
+        value: data
+      });
+      this.$store.commit('updateNewDataSet', {
+        value: data
+      });
+    }
+  },
   methods: {
     capitalizeFirstLetter(string) {
       return string.charAt(0).toUpperCase() + string.slice(1);

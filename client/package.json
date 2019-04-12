@@ -24,7 +24,7 @@
     "vue-chartjs": "^3.4.2",
     "vue-clickaway": "^2.1.0",
     "vue-json-viewer": "^2.1.0",
-    "vue-notifyjs": "^0.3.0",
+    "vue-notifyjs": "^0.4.3",
     "vue-router": "^3.0.1",
     "vue-socket.io": "^3.0.7",
     "vuetify": "^1.5.6",

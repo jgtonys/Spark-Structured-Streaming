@@ -45,6 +45,7 @@ module.exports.startBroker = (req, res, next) => {
         if(stdout.indexOf("0.0.0.0:9092")>=0) flag = true;console.log("exist!");
       }
     });
+  res.send("ready");
 };
 
 module.exports.stopBroker = (req, res, next) => {
@@ -52,7 +53,17 @@ module.exports.stopBroker = (req, res, next) => {
 
   var startscript = exec("bin/kafka-server-stop.sh", {
       cwd: "/home/jungyu/kafka/"
-    });
+    },
+      (error, stdout, stderr) => {
+        console.log(stdout);
+        console.log(stderr);
+        if (error !== null) {
+          res.send([0,`exec error: ${error} \n ${stderr}`]);
+        }
+        else {
+          res.send([1,stdout]);
+        }
+      });
   console.log("stop broker");
 };
 

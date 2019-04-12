@@ -5,7 +5,7 @@
       <card>
         <div class="card-body">
           <h3 class="card-header mb-5">Kafka-Producer User Input Testbed</h3>
-          <v-textarea class="p-3 mb-3" readonly name="input-7-4" label="Sent Messages" :value="`${this.producer.logData}`" rows="6"></v-textarea>
+          <v-textarea class="p-3 mb-3" readonly id="producerLogData" :value="`${this.producer.logData}`" rows="6"></v-textarea>
           <form v-on:submit.prevent="noSubmit()" class="p-3">
             <div class="row">
               <div class="col-8">
@@ -34,20 +34,38 @@
 
   <div class="row">
     <div class="col-12">
-      <input-chart />
-      <button @click="testbutton">input</button>
+      <card>
+        <div class="card-body">
+          <input-chart :handle="handle" />
+        </div>
+      </card>
     </div>
   </div>
 
-  <div v-if="this.brokerStatus">
-    <div class="card">
 
-    </div>
-  </div>
+
+  <v-dialog v-model="dialog" persistent scrollable max-width="500px">
+    <v-card>
+      <v-card-title class="headline">Detail Information</v-card-title>
+
+      <v-card-text>
+        <json-viewer :value="tmpObj" :expand-depth=5 copyable sort>
+        </json-viewer>
+      </v-card-text>
+      <v-card-actions>
+        <v-spacer></v-spacer>
+        <v-btn color="green darken-1" flat="flat" @click="dialog = false">
+          확인
+        </v-btn>
+      </v-card-actions>
+    </v-card>
+  </v-dialog>
 </div>
 </template>
 <script>
-import { InputChart } from "@/components/index";
+import {
+  InputChart
+} from "@/components/index";
 import {
   mapGetters
 } from 'vuex';
@@ -57,7 +75,8 @@ export default {
   },
   data() {
     return {
-      tmpMsg: ""
+      tmpMsg: "",
+      dialog: false,
     };
   },
   sockets: {
@@ -66,6 +85,10 @@ export default {
         value: data
       });
     }
+  },
+  mounted() {
+    var el = document.getElementById("producerLogData");
+    el.scrollTop = el.scrollHeight;
   },
   methods: {
     sendMsg: function() {
@@ -83,23 +106,27 @@ export default {
         })
     },
     noSubmit: function() {
-      console.log("no submit");
+      //console.log("no submit");
     },
-    testbutton: function() {
-      let dd = {
-        x: Date.now(),
-        y: 27
-      }
-      this.$store.commit('updateNewDataSet', {
-        value: dd
-      });
+    handle(point, event) {
+      const item = event[0];
+      this.$store.commit('setTmpChartData', {
+        value: this.dataSetObj[item._index]
+      })
+      this.dialog = true;
     }
+  },
+  updated: function() {
+    var el = document.getElementById("producerLogData");
+    el.scrollTop = el.scrollHeight;
   },
   computed: mapGetters({
     producer: 'getProducerValue',
     broker: 'getBrokerValue',
     brokerStatus: 'getBroker',
-    resultData: 'getConsumerData'
+    resultData: 'getConsumerData',
+    dataSetObj: 'getNewDataSetObj',
+    tmpObj: 'getTmpChartData'
   })
 };
 </script>
