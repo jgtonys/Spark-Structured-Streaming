@@ -3,8 +3,24 @@
   <!--Stats cards-->
 
   <div class="row mb-3">
-    <div class="col-md-6 col-xl-3">
-      <stats-card v-bind:class="{ gradient: sparkAppStatus }">
+    <div class="col-md-3 col-xl-3">
+      <stats-card>
+        <div class="icon-big" slot="header">
+          <v-btn flat fab block v-on:click="runPython()">
+            <v-icon size="50px">{{this.sparkApp.icon}}</v-icon>
+          </v-btn>
+        </div>
+        <div class="numbers" slot="content">
+          <p>Input Python</p>
+        </div>
+
+        <div class="stats" slot="footer">
+          Testing Python Program
+        </div>
+      </stats-card>
+    </div>
+    <div class="col-md-3 col-xl-3">
+      <stats-card>
         <div class="icon-big" slot="header">
           <v-btn flat fab block :color="this.sparkApp.type" v-on:click="toogleApp()" :loading="this.sparkApp.loading" :disabled="this.sparkApp.loading">
             <v-icon size="50px">{{this.sparkApp.icon}}</v-icon>
@@ -191,6 +207,12 @@ export default {
       let cwd = this.sparkBase;
       this.$socket.emit('test', options, cwd);
       this.$store.dispatch('toggleSparkApp');
+    },
+    runPython: function() {
+      this.$http.post('/runPython')
+        .then(response => {
+          console.log(response);
+        });
     },
     change: function(value) {
       this.dialogTargetValue = value[0];

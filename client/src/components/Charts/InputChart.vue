@@ -23,7 +23,7 @@ export default {
       chartoption: {
         title: {
           display: true,
-          text: 'Spark Structured Streaming Number of InputRows'
+          text: 'Step 4 Streaming Results'
         },
         responsive: true,
         scales: {
@@ -37,7 +37,10 @@ export default {
                     y: Math.round(Math.random() * 30)
                   });*/
                   if(key==0) {
-                    dataset.data = this.newDataSet;
+                    dataset.data = this.newDataSet.G_SBP_DSTD;
+                  }
+                  if(key==1) {
+                    dataset.data = this.newDataSet.G_DBP_DSTD;
                   }
 
                 });
@@ -52,7 +55,7 @@ export default {
           yAxes: [{
             scaleLabel: {
               display: true,
-              labelString: 'numInputRows'
+              labelString: 'Value'
             },
             ticks: {
               suggestedMin: 0
@@ -84,7 +87,7 @@ export default {
     fillData() {
       this.datacollection = {
         datasets: [{
-          label: 'Number of Input Rows',
+          label: 'G_SBP_DSTD',
           backgroundColor: "white",
           borderColor: "red",
           fill: false,
@@ -92,7 +95,7 @@ export default {
           borderDash: [8, 4],
           data: []
         }, {
-          label: 'Number of Input Rows',
+          label: 'G_DBP_DSTD',
           backgroundColor: "blue",
           borderColor: "blue",
           fill: false,

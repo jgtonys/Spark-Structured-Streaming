@@ -90,7 +90,10 @@ export const store = new Vuex.Store({
       sliceTime: "10"
     },
     consumerData: {},
-    newDataSet: [],
+    newDataSet: {
+      "G_SBP_DSTD" : [],
+      "G_DBP_DSTD" : []
+    },
     newDataSetObj: [],
     tmpChartData: {}
   },
@@ -414,16 +417,21 @@ export const store = new Vuex.Store({
       state.consumerData = payload.value;
     },
     updateNewDataSet: function(state, payload) {
-      console.log(payload.value.slice(0, 20));
-      if (payload.value.slice(0, 20) == "Query made progress:") {
-        var obj = JSON.parse(payload.value.slice(21));
+      //console.log(payload.value.slice(0, 20));
+      //if (payload.value.slice(0, 20) == "Query made progress:") {
+        //var obj = JSON.parse(payload.value.slice(21));
+        var obj = JSON.parse(payload.value);
         console.log(obj);
-        state.newDataSet.push({
+        state.newDataSet.G_SBP_DSTD.push({
           x: Date.now(),
-          y: obj.numInputRows
+          y: obj.G_SBP_DSTD // obj.numInputRows
+        });
+        state.newDataSet.G_DBP_DSTD.push({
+          x: Date.now(),
+          y: obj.G_DBP_DSTD // obj.numInputRows
         });
         state.newDataSetObj.push(obj);
-      }
+      //}
 
     },
     setKafkaConsumer: function(state, payload) {

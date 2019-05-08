@@ -82,8 +82,14 @@ export default {
   sockets: {
     consumer(data) {
       this.$store.commit('updateConsumerData', {
-        value: data
+        value: JSON.parse(data.value) // value: data
       });
+
+      // for test
+      this.$store.commit('updateNewDataSet', {
+        value: data.value
+      });
+      //
     }
   },
   mounted() {
@@ -93,7 +99,7 @@ export default {
   methods: {
     sendMsg: function() {
       this.$http.post('/sendMsg', {
-          topic: 'test',
+          topic: 'test3',
           messages: this.tmpMsg,
           partition: 1
         })
@@ -103,7 +109,7 @@ export default {
             value: this.tmpMsg
           });
           this.tmpMsg = "";
-        })
+        });
     },
     noSubmit: function() {
       //console.log("no submit");

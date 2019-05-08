@@ -12,8 +12,6 @@ module.exports = (app) => {
       .get(maincontroller.stopMaster);
     app.route('/stopSlave')
       .get(maincontroller.stopSlave);
-    app.route('/startApp')
-      .get(maincontroller.startApp);
     app.route('/startProducer')
       .get(kafkacontroller.producerOn);
     app.route('/sendMsg')
@@ -22,4 +20,6 @@ module.exports = (app) => {
       .get(kafkacontroller.startBroker);
     app.route('/stopBroker')
       .get(kafkacontroller.stopBroker);
+    app.route('/runPython')
+      .post(maincontroller.runPython);
 }

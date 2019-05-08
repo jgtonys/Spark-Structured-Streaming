@@ -34,10 +34,11 @@ module.exports = (io) => {
       var client = new kafka.KafkaClient();
       var consumer = new Consumer(client, [{
         topic: payload,
-        offset: 0
+        partition: 0
       }], {
         autoCommit: false
       });
+
       consumer.on('message', function(message) {
         io.emit('consumer', message);
       });

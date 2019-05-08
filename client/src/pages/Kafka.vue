@@ -21,7 +21,7 @@
           </stats-card>
         </div>
 
-        <div class="col-4" v-if="this.brokerStatus">
+        <div class="col-4">
           <stats-card>
             <div class="icon-big" slot="header">
               <v-btn flat fab block :color="this.producer.type" v-on:click="startProducer()" :loading="this.producer.loading" :disabled="this.producer.loading">
@@ -37,7 +37,7 @@
             </div>
           </stats-card>
         </div>
-        <div class="col-4" v-if="this.brokerStatus">
+        <div class="col-4">
           <stats-card>
             <div class="icon-big" slot="header">
               <v-btn flat fab block :color="this.consumer.type" v-on:click="startConsumer()" :loading="this.consumer.loading" :disabled="this.consumer.loading">
