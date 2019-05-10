@@ -5,7 +5,7 @@ module.exports = (io) => {
     console.log('Socket initiated!');
     socket.on('application', (options, basecwd) => {
       console.log(options);
-      var cmd = options.baseMethod + " --class " + options.class + " " + options.targetJar +
+      var cmd = options.baseMethod + " --class " + options.class + " " + options.targetJar;
 
       /*
       var cmd = options.baseMethod +
