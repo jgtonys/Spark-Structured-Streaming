@@ -14,7 +14,7 @@ export const store = new Vuex.Store({
     sparkServer: false,
     sparkSlave: false,
     sparkApp: false,
-    sparkBase: "/home/jungyu/spark-2.4.0-bin-hadoop2.7/",
+    sparkBase: "/home/sc2/spark-2.4.2-bin-hadoop2.7/",
     kafkaProducer: false,
     kafkaBroker: false,
     kafkaConsumer: false,
