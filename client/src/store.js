@@ -84,7 +84,7 @@ export const store = new Vuex.Store({
       master: "jungyu:7077",
       class: "testStructuredStreamingKafka.JavaWordCount",
       targetJar: "../eclipse-workspace/testStructuredStreamingKafka/target/testStructuredStreaming-0.0.1.jar",
-      host: "localhost",
+      host: "http://165.132.105.28",
       port: "9999",
       windowTime: "60",
       sliceTime: "10"
