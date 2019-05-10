@@ -249,7 +249,7 @@ export default {
       let options = this.appOptions;
       let cwd = this.sparkBase;
       let input = this.selectedInputFIle;
-      this.$socket.emit('application', options, input, cwd);
+      this.$socket.emit('application', options, cwd); // input 추가해야함
       this.$store.dispatch('toggleSparkApp');
     },
     runPython: function() {

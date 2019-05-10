@@ -3,7 +3,7 @@ const kafka = require('kafka-node');
 module.exports = (io) => {
   io.on('connection', (socket) => {
     console.log('Socket initiated!');
-    socket.on('application', (options, input, basecwd) => {
+    socket.on('application', (options, basecwd) => {
       var cmd = options.baseMethod +
         //" --packages " + options.packages +
         //" --master spark://" + options.master +
@@ -14,7 +14,9 @@ module.exports = (io) => {
         //" " + options.windowTime +
         //" " + options.sliceTime;
 
-      console.log(cmd + " " + input)
+      console.log(cmd);
+
+      console.log("sdfkjwkjxkjeslsl");
 
 
       const exec = require('child_process').exec;
