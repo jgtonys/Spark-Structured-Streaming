@@ -5,7 +5,7 @@ module.exports = (io) => {
     console.log('application socket initiated');
     socket.on('application', (options, input, basecwd) => {
       console.log(options);
-      var cmd = options.baseMethod + " --class " + options.class + " " + options.targetJar + " " + input;
+      var cmd = options.baseMethod + " --class " + options.class + " " + options.targetJar + " /home/sc2/Web/Spark-Structured-Streaming/uploads/files/emp1.csv";
 
       /*
       var cmd = options.baseMethod +
