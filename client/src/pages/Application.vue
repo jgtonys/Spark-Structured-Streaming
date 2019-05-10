@@ -248,7 +248,8 @@ export default {
     toogleApp: function() {
       let options = this.appOptions;
       let cwd = this.sparkBase;
-      let input = this.selectedInputFIle;
+      var input = this.selectedInputFIle;
+      console.log("blabla : " + input);
       this.$socket.emit('application', options, input, cwd); // input 추가해야함
       this.$store.dispatch('toggleSparkApp');
     },
