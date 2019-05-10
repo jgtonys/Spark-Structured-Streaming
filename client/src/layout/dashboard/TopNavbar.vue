@@ -73,13 +73,13 @@ export default {
     disconnect() {
       this.$store.dispatch('connectSocket');
     },
-    test(data) {
+    application(data) {
       this.$store.commit('updateAppLog', {
         value: data
       });
-      this.$store.commit('updateNewDataSet', {
+      /*this.$store.commit('updateNewDataSet', {
         value: data
-      });
+      });*/
     }
   },
   methods: {
