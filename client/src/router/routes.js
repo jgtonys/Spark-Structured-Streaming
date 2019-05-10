@@ -10,6 +10,7 @@ import Icons from "@/pages/Icons.vue";
 import Maps from "@/pages/Maps.vue";
 import Kafka from "@/pages/Kafka.vue";
 import Testbed from "@/pages/Testbed.vue";
+import Monitoring from "@/pages/Monitoring.vue";
 
 const routes = [
   {
@@ -51,6 +52,11 @@ const routes = [
         path: "testbed",
         name: "testbed",
         component: Testbed
+      },
+      {
+        path: "monitoring",
+        name: "Monitoring",
+        component: Monitoring
       }
     ]
   },

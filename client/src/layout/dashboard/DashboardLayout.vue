@@ -6,6 +6,7 @@
         <sidebar-link to="/kafka" name="Kafka Environment" icon="ti-exchange-vertical"/>
         <sidebar-link to="/app" name="Application" icon="ti-layout-tab"/>
         <sidebar-link to="/testbed" name="Testbed" icon="ti-layout-accordion-list"/>
+        <sidebar-link to="/monitoring" name="Monitoring" icon="ti-layout-accordion-list"/>
         <!--<sidebar-link to="/icons" name="Icons" icon="ti-pencil-alt2"/>
         <sidebar-link to="/maps" name="Map" icon="ti-map"/>
         <sidebar-link to="/notifications" name="Notifications" icon="ti-bell"/>-->
