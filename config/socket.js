@@ -2,10 +2,10 @@ const kafka = require('kafka-node');
 
 module.exports = (io) => {
   io.on('connection', (socket) => {
-    console.log('Socket initiated!');
-    socket.on('application', (options, basecwd) => {
+    console.log('application socket initiated');
+    socket.on('application', (options, input, basecwd) => {
       console.log(options);
-      var cmd = options.baseMethod + " --class " + options.class + " " + options.targetJar;
+      var cmd = options.baseMethod + " --class " + options.class + " " + options.targetJar + " " + input;
 
       /*
       var cmd = options.baseMethod +
@@ -17,16 +17,9 @@ module.exports = (io) => {
         //" " + options.port +
         //" " + options.windowTime +
         //" " + options.sliceTime;
-
-
       */
 
       console.log(cmd);
-
-
-
-      console.log("sdfkjwkjxkjeslsl");
-
 
       const exec = require('child_process').exec;
       var bashscript = exec(cmd, {

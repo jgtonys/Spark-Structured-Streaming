@@ -83,7 +83,7 @@ export const store = new Vuex.Store({
       packages: "",
       master: "",
       class: "project.Main",
-      targetJar: "~/apps/step4.jar",
+      targetJar: "~/apps/step2.jar",
       host: "",
       port: "",
       windowTime: "",
