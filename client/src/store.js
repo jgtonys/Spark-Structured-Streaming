@@ -80,14 +80,14 @@ export const store = new Vuex.Store({
     },
     appOptions: {
       baseMethod: "bin/spark-submit",
-      packages: "org.apache.spark:spark-sql-kafka-0-10_2.11:2.4.0",
-      master: "jungyu:7077",
-      class: "testStructuredStreamingKafka.JavaWordCount",
-      targetJar: "../eclipse-workspace/testStructuredStreamingKafka/target/testStructuredStreaming-0.0.1.jar",
-      host: "http://165.132.105.28",
-      port: "9999",
-      windowTime: "60",
-      sliceTime: "10"
+      packages: "",
+      master: "",
+      class: "project.Main",
+      targetJar: "~/apps/step4.jar",
+      host: "",
+      port: "",
+      windowTime: "",
+      sliceTime: ""
     },
     inputFiles: [],
     consumerData: {},

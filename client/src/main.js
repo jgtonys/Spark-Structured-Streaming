@@ -9,7 +9,6 @@ import { store } from './store';
 import JsonViewer from 'vue-json-viewer'
 import Notifications from 'vue-notifyjs'
 
-
 const socketInstance = io('http://165.132.105.28:3000', {
   transports: ['websocket'],
 });

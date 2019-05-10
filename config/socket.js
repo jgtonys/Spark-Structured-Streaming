@@ -5,14 +5,17 @@ module.exports = (io) => {
     console.log('Socket initiated!');
     socket.on('application', (options, input, basecwd) => {
       var cmd = options.baseMethod +
-        " --packages " + options.packages +
-        " --master spark://" + options.master +
+        //" --packages " + options.packages +
+        //" --master spark://" + options.master +
         " --class " + options.class +
         " " + options.targetJar +
-        " " + options.host +
-        " " + options.port +
-        " " + options.windowTime +
-        " " + options.sliceTime;
+        //" " + options.host +
+        //" " + options.port +
+        //" " + options.windowTime +
+        //" " + options.sliceTime;
+
+      console.log(cmd + " " + input)
+
 
       const exec = require('child_process').exec;
       var bashscript = exec(cmd, {
