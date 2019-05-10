@@ -10,18 +10,15 @@ import JsonViewer from 'vue-json-viewer'
 import Notifications from 'vue-notifyjs'
 
 
-
-
-/*
 const socketInstance = io('http://165.132.105.28:3000', {
   transports: ['websocket'],
 });
-*/
 
+/*
 const socketInstance = io('localhost:3000', {
   transports: ['websocket'],
 });
-
+*/
 Vue.use(JsonViewer);
 Vue.use(new VueSocketIO({ debug: true, connection: socketInstance }));
 Vue.use(Vuetify);
