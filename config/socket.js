@@ -5,6 +5,9 @@ module.exports = (io) => {
     console.log('Socket initiated!');
     socket.on('application', (options, basecwd) => {
       console.log(options);
+      var cmd = options.baseMethod + " --class " + options.class + " " + options.targetJar +
+
+      /*
       var cmd = options.baseMethod +
         //" --packages " + options.packages +
         //" --master spark://" + options.master +
@@ -14,6 +17,9 @@ module.exports = (io) => {
         //" " + options.port +
         //" " + options.windowTime +
         //" " + options.sliceTime;
+
+
+      */
 
       console.log(cmd);
 
