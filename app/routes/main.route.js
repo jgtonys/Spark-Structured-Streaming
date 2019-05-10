@@ -1,5 +1,6 @@
 let maincontroller = require('../controllers/main.controller.js');
 let kafkacontroller = require('../controllers/kafka.controller.js');
+let filecontroller = require('../controllers/file.controller.js');
 
 module.exports = (app) => {
     app.route('/')
@@ -22,4 +23,8 @@ module.exports = (app) => {
       .get(kafkacontroller.stopBroker);
     app.route('/runPython')
       .post(maincontroller.runPython);
+    app.route('/uploadInputFile')
+      .post(filecontroller.upload.any(),maincontroller.uploadInput);
+    app.route('/showList')
+      .get(filecontroller.showList);
 }

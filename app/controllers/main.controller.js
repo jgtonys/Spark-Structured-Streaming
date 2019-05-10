@@ -81,3 +81,9 @@ module.exports.runPython = (req, res, next) => {
       }
     });
 };
+
+module.exports.uploadInput = (req, res, next) => {
+  console.log(req.body);
+  console.log(req.files);
+  res.send("okay");
+};

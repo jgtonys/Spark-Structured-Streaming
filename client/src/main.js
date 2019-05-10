@@ -13,7 +13,7 @@ import Notifications from 'vue-notifyjs'
 
 
 
-const socketInstance = io('http://165.132.105.28:3000', {
+const socketInstance = io('http://localhost:3000', {
   transports: ['websocket'],
 });
 

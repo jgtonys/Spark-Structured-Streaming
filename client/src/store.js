@@ -89,6 +89,7 @@ export const store = new Vuex.Store({
       windowTime: "60",
       sliceTime: "10"
     },
+    inputFiles: [],
     consumerData: {},
     newDataSet: {
       "G_SBP_DSTD" : [],
@@ -154,6 +155,9 @@ export const store = new Vuex.Store({
     },
     getTmpChartData: function(state) {
       return state.tmpChartData;
+    },
+    getInputFiles: function(state) {
+      return state.inputFiles;
     }
   },
   mutations: {
@@ -403,12 +407,12 @@ export const store = new Vuex.Store({
       if (payload.key == 0) state.appOptions.baseMethod = payload.value;
       else if (payload.key == 1) state.appOptions.packages = payload.value;
       else if (payload.key == 2) state.appOptions.master = payload.value;
-      else if (payload.key == 3) state.appOptions.class = payload.value;
-      else if (payload.key == 4) state.appOptions.targetJar = payload.value;
-      else if (payload.key == 5) state.appOptions.host = payload.value;
-      else if (payload.key == 6) state.appOptions.port = payload.value;
-      else if (payload.key == 7) state.appOptions.windowTime = payload.value;
-      else if (payload.key == 8) state.appOptions.sliceTime = payload.value;
+      else if (payload.key == 4) state.appOptions.class = payload.value;
+      else if (payload.key == 5) state.appOptions.targetJar = payload.value;
+      else if (payload.key == 6) state.appOptions.host = payload.value;
+      else if (payload.key == 7) state.appOptions.port = payload.value;
+      else if (payload.key == 8) state.appOptions.windowTime = payload.value;
+      else if (payload.key == 9) state.appOptions.sliceTime = payload.value;
     },
     updateSparkBase: function(state, payload) {
       state.sparkBase = payload.value;
@@ -464,6 +468,10 @@ export const store = new Vuex.Store({
     },
     setTmpChartData: function(state,payload) {
       state.tmpChartData = payload.data;
+    },
+    setInputFiles: function(state, payload) {
+      console.log("yes");
+      state.inputFiles = payload.value;
     }
   },
   actions: {

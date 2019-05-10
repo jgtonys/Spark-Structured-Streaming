@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="row mb-3">
-      <div class="col-md-6 col-xl-3" >
+      <div class="col-md-4 col-4" >
         <stats-card>
           <div class="icon-big" slot="header">
             <v-btn flat fab block :color="this.sparkServer.type" v-on:click="toogleServer()" :loading="this.sparkServer.loading" :disabled="this.sparkServer.loading">
@@ -17,7 +17,7 @@
           </div>
         </stats-card>
       </div>
-      <div class="col-md-9 col-12">
+      <div class="col-md-8 col-8">
           <textarea readonly class="form-control txtarea" id="serverlog" rows="6">{{this.sparkServer.logData}}</textarea>
       </div>
     </div>
@@ -25,7 +25,7 @@
 
 
     <div class="row mb-3">
-      <div class="col-md-6 col-xl-3">
+      <div class="col-md-4 col-4">
         <stats-card>
           <div class="icon-big" slot="header">
             <v-btn flat fab block :color="this.sparkSlave.type" v-on:click="toogleSlave()" :loading="this.sparkSlave.loading" :disabled="this.sparkSlave.loading">
@@ -41,7 +41,7 @@
           </div>
         </stats-card>
       </div>
-      <div class="col-md-9 col-12">
+      <div class="col-md-8 col-8">
           <textarea readonly class="form-control txtarea" id="slavelog" rows="6">{{this.sparkSlave.logData}}</textarea>
       </div>
     </div>

@@ -3,7 +3,7 @@ const kafka = require('kafka-node');
 module.exports = (io) => {
   io.on('connection', (socket) => {
     console.log('Socket initiated!');
-    socket.on('test', (options, basecwd) => {
+    socket.on('application', (options, input, basecwd) => {
       var cmd = options.baseMethod +
         " --packages " + options.packages +
         " --master spark://" + options.master +
@@ -20,11 +20,11 @@ module.exports = (io) => {
       });
 
       bashscript.stdout.on('data', function(data) {
-        io.emit('test', data);
+        io.emit('application', data);
       });
 
       bashscript.stderr.on('data', function(data) {
-        io.emit('test', data);
+        io.emit('application', data);
       });
     });
 

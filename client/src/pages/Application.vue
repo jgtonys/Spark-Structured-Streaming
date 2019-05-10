@@ -3,23 +3,7 @@
   <!--Stats cards-->
 
   <div class="row mb-3">
-    <div class="col-md-3 col-xl-3">
-      <stats-card>
-        <div class="icon-big" slot="header">
-          <v-btn flat fab block v-on:click="runPython()">
-            <v-icon size="50px">{{this.sparkApp.icon}}</v-icon>
-          </v-btn>
-        </div>
-        <div class="numbers" slot="content">
-          <p>Input Python</p>
-        </div>
-
-        <div class="stats" slot="footer">
-          Testing Python Program
-        </div>
-      </stats-card>
-    </div>
-    <div class="col-md-3 col-xl-3">
+    <div class="col-md-4 col-4">
       <stats-card>
         <div class="icon-big" slot="header">
           <v-btn flat fab block :color="this.sparkApp.type" v-on:click="toogleApp()" :loading="this.sparkApp.loading" :disabled="this.sparkApp.loading">
@@ -36,7 +20,25 @@
         </div>
       </stats-card>
     </div>
-    <div class="col-md-9 col-12">
+    <div class="col-md-8 col-8">
+      <v-card class="p-3" flat>
+          <v-card-actions>
+            <v-select
+              v-model="selectedInputFile"
+              :items="inputFiles"
+              label="입력 파일을 선택하세요"
+            ></v-select>
+            <v-btn color="green darken-1" flat="flat" @click="addFileDialog = true">
+              추가
+            </v-btn>
+          </v-card-actions>
+      </v-card>
+
+    </div>
+  </div>
+
+  <div class="row mb-3">
+    <div class="col-md-12 col-12">
       <card>
         <h3 class="pl-4 pb-2 mb-2" v-if="sparkAppStatus">Application Options</h3>
         <h3 class="pl-4 pb-2 mb-2" v-else="sparkAppStatus">Application Options (Editable)</h3>
@@ -78,10 +80,19 @@
                 </td>
               </tr>
               <tr>
+                <th scope="row">Input File</th>
+                <td>{{this.selectedInputFile}}</td>
+                <td>
+                  <v-btn flat :disabled="sparkAppStatus" icon color="green" @click="change([selectedInputFile,'Input File',3])">
+                    <v-icon>edit</v-icon>
+                  </v-btn>
+                </td>
+              </tr>
+              <tr>
                 <th scope="row">Class</th>
                 <td>{{this.appOptions.class}}</td>
                 <td>
-                  <v-btn flat :disabled="sparkAppStatus" icon color="green" @click="change([appOptions.class,'Class',3])">
+                  <v-btn flat :disabled="sparkAppStatus" icon color="green" @click="change([appOptions.class,'Class',4])">
                     <v-icon>edit</v-icon>
                   </v-btn>
                 </td>
@@ -90,7 +101,7 @@
                 <th scope="row">Jar File</th>
                 <td>{{this.appOptions.targetJar}}</td>
                 <td>
-                  <v-btn flat :disabled="sparkAppStatus" icon color="green" @click="change([appOptions.targetJar,'Jar File',4])">
+                  <v-btn flat :disabled="sparkAppStatus" icon color="green" @click="change([appOptions.targetJar,'Jar File',5])">
                     <v-icon>edit</v-icon>
                   </v-btn>
                 </td>
@@ -99,7 +110,7 @@
                 <th scope="row">Host</th>
                 <td>{{this.appOptions.host}}</td>
                 <td>
-                  <v-btn flat :disabled="sparkAppStatus" icon color="green" @click="change([appOptions.host,'Host',5])">
+                  <v-btn flat :disabled="sparkAppStatus" icon color="green" @click="change([appOptions.host,'Host',6])">
                     <v-icon>edit</v-icon>
                   </v-btn>
                 </td>
@@ -108,7 +119,7 @@
                 <th scope="row">Port</th>
                 <td>{{this.appOptions.port}}</td>
                 <td>
-                  <v-btn flat :disabled="sparkAppStatus" icon color="green" @click="change([appOptions.port,'Port',6])">
+                  <v-btn flat :disabled="sparkAppStatus" icon color="green" @click="change([appOptions.port,'Port',7])">
                     <v-icon>edit</v-icon>
                   </v-btn>
                 </td>
@@ -117,7 +128,7 @@
                 <th scope="row">Window Size</th>
                 <td>{{this.appOptions.windowTime}}</td>
                 <td>
-                  <v-btn flat :disabled="sparkAppStatus" icon color="green" @click="change([appOptions.windowTime,'Window Size',7])">
+                  <v-btn flat :disabled="sparkAppStatus" icon color="green" @click="change([appOptions.windowTime,'Window Size',8])">
                     <v-icon>edit</v-icon>
                   </v-btn>
                 </td>
@@ -126,7 +137,7 @@
                 <th scope="row">Slice Size</th>
                 <td>{{this.appOptions.sliceTime}}</td>
                 <td>
-                  <v-btn flat :disabled="sparkAppStatus" icon color="green" @click="change([appOptions.sliceTime,'Slice Size',8])">
+                  <v-btn flat :disabled="sparkAppStatus" icon color="green" @click="change([appOptions.sliceTime,'Slice Size',9])">
                     <v-icon>edit</v-icon>
                   </v-btn>
                 </td>
@@ -139,11 +150,13 @@
     </div>
 
   </div>
-  <div class="row">
+
+  <div class="row mb-3">
     <div class="col-md-12 col-12">
       <textarea readonly class="form-control txtarea" id="applog" rows="12">{{this.sparkApp.logData}}</textarea>
     </div>
   </div>
+
 
 
 
@@ -167,9 +180,25 @@
     </v-card>
   </v-dialog>
 
+  <v-dialog v-model="addFileDialog" persistent max-width="600px">
+    <v-card class="p-5">
+      <v-card-text>
+        <vue-dropzone ref="myVueDropzone" id="dropzone" :options="dropzoneOptions" @vdropzone-complete="afterUpload"></vue-dropzone>
+      </v-card-text>
+      <v-card-actions>
+        <v-spacer></v-spacer>
+        <v-btn color="green darken-1" flat="flat" @click="addFileDialog = false">
+          닫기
+        </v-btn>
+      </v-card-actions>
+    </v-card>
+  </v-dialog>
+
 </div>
 </template>
 <script>
+import vue2Dropzone from 'vue2-dropzone'
+import 'vue2-dropzone/dist/vue2Dropzone.min.css'
 import {
   StatsCard,
   InputChart
@@ -185,11 +214,13 @@ import Chartist from 'chartist';
 export default {
   components: {
     StatsCard,
-    InputChart
+    InputChart,
+    vueDropzone: vue2Dropzone
   },
   mounted() {
     var el = document.getElementById("applog");
     el.scrollTop = el.scrollHeight;
+    this.showList();
   },
   data() {
     return {
@@ -198,14 +229,27 @@ export default {
       dialog: false,
       dialogTarget: 0,
       dialogTargetValue: "",
-      changedValue: ""
+      addFileDialog: false,
+      changedValue: "",
+      selectedInputFile: "",
+      dropzoneOptions: {
+        url: '/uploadInputFile',
+        thumbnailWidth: 50, // px
+        maxFilesize: 50,
+        headers: {
+          "fileDataUpload": "custom_input_file"
+        },
+        addRemoveLinks: true,
+        dictDefaultMessage: "<i class='fa fa-cloud-upload'></i>업로드할 파일을 선택하세요"
+      }
     };
   },
   methods: {
     toogleApp: function() {
       let options = this.appOptions;
       let cwd = this.sparkBase;
-      this.$socket.emit('test', options, cwd);
+      let input = this.selectedInputFIle;
+      this.$socket.emit('application', options, input, cwd);
       this.$store.dispatch('toggleSparkApp');
     },
     runPython: function() {
@@ -227,6 +271,17 @@ export default {
         value: this.changedValue
       });
       this.dialog = false;
+    },
+    afterUpload: function(file) {
+      this.showList();
+    },
+    showList: function() {
+      this.$http.get('/showList')
+        .then(response => {
+          this.$store.commit('setInputFiles', {
+            value: response.data
+          });
+        });
     }
   },
   updated: function() {
@@ -237,52 +292,10 @@ export default {
     sparkApp: 'getSparkAppValue',
     sparkAppStatus: 'getSparkApp',
     appOptions: 'getAppOptions',
-    sparkBase: 'getSparkBase'
+    sparkBase: 'getSparkBase',
+    inputFiles: 'getInputFiles'
   })
 };
 </script>
 <style>
-.gradient {
-  background: linear-gradient(45deg, black, white);
-  background-size: 100% 100%;
-  -webkit-animation: AnimationName 10s ease infinite;
-  -moz-animation: AnimationName 10s ease infinite;
-  animation: AnimationName 10s ease infinite;
-}
-
-@-webkit-keyframes AnimationName {
-  0% {
-    background-position: 0% 50%
-  }
-  50% {
-    background-position: 100% 50%
-  }
-  100% {
-    background-position: 0% 50%
-  }
-}
-
-@-moz-keyframes AnimationName {
-  0% {
-    background-position: 0% 50%
-  }
-  50% {
-    background-position: 100% 50%
-  }
-  100% {
-    background-position: 0% 50%
-  }
-}
-
-@keyframes AnimationName {
-  0% {
-    background-position: 0% 50%
-  }
-  50% {
-    background-position: 100% 50%
-  }
-  100% {
-    background-position: 0% 50%
-  }
-}
 </style>
