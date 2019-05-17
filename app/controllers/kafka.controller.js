@@ -10,7 +10,7 @@ var producer;
 var client = new kafka.KafkaClient();
 
 
-client.loadMetadataForTopics(["test3"], (err, resp) => {
+client.loadMetadataForTopics(["step2","step3","step4","step4_2"], (err, resp) => {
   console.log(JSON.stringify(resp))
 });
 
