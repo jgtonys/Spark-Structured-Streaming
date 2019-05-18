@@ -59,7 +59,7 @@ export default {
       this.$store.commit('updateTmpFailedResult', {
         value: data.value
       });
-    }
+    },
     delimiter(data) {
       console.log(data);
       if(data.value == "end") {
