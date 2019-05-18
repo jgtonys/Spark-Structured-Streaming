@@ -225,8 +225,8 @@ export default {
   },
   methods: {
     sync() {
-      console.log("sync!");
-      this.resultData = this.$store.getters.getNewDataSetObj;
+      this.resultData = this.$store.state.newDataSetObj;
+      console.log(this.resultData);
     }
   }
 };
