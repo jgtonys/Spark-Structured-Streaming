@@ -497,6 +497,7 @@ export const store = new Vuex.Store({
           y: tmpFailedResult.length // 대그룹화 성공하지 못한 개수 (flag 데이터)
         });
 
+        console.log("push!");
 
         state.newDataSetObj.concat(tmpResult);
         state.tmpNewDataSetObj = [];
