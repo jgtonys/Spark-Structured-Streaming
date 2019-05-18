@@ -30,7 +30,7 @@
 
   <div class="row">
     <div class="col-12">
-      <router-link :to="{ name: 'table'}">
+      <router-link :to="{ name: 'table'}" target="_blank">
         <v-btn depressed>결과 테이블 비교</v-btn>
       </router-link>
     </div>
@@ -53,30 +53,6 @@ export default {
       tmpMsg: "",
       dialog: false
     };
-  },
-  sockets: {
-    result(data) {
-      /*
-      this.$store.commit('updateConsumerData', {
-        value: JSON.parse(data.value) // value: data
-      });*/
-
-      // for test
-      this.$store.commit('updateNewDataSet', {
-        value: data.value
-      });
-      //
-    },
-    failedResult(data) {
-      this.$store.commit('updateTmpFailedResult', {
-        value: data.value
-      });
-    },
-    delimiter(data) {
-      if(data.value === 'end') {
-        this.$store.commit('resultDataPush');
-      }
-    }
   },
   methods: {
     handle(point, event) {
