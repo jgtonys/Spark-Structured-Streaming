@@ -7,7 +7,7 @@
 
     <div class="row">
       <div class="col-6">
-        <v-data-table :headers="headers" :items="desserts" :loading="true" class="elevation-1" :rows-per-page-text="100">
+        <v-data-table :headers="headers" :items="desserts" :loading="true" class="elevation-1" :rows-per-page-items="[50, 100]">
           <v-progress-linear slot="progress" color="blue" indeterminate></v-progress-linear>
           <template slot="items" slot-scope="props">
             <td>{{ props.item.name }}</td>
