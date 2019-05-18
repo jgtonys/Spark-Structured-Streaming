@@ -6,6 +6,7 @@
     <h1>Table</h1>
 
     <v-container grid-list-md text-xs-center>
+      <v-layout row wrap>
       <v-flex xs6>
         <v-data-table :headers="headers" :items="desserts" :loading="true" class="elevation-1" :rows-per-page-items="[50, 100]">
           <v-progress-linear slot="progress" color="blue" indeterminate></v-progress-linear>
@@ -20,7 +21,7 @@
         </v-data-table>
       </v-flex>
         <v-flex xs6>
-        <v-data-table :headers="headers" :items="desserts" :loading="true" class="elevation-1">
+        <v-data-table :headers="headers" :items="desserts" :loading="true" class="elevation-1" :rows-per-page-items="[50, 100]">
           <v-progress-linear slot="progress" color="blue" indeterminate></v-progress-linear>
           <template slot="items" slot-scope="props">
             <td>{{ props.item.name }}</td>
@@ -32,6 +33,7 @@
           </template>
         </v-data-table>
         </v-flex>
+      </v-layout>
     </v-container>
 
   </div>
