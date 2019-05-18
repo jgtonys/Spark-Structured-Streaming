@@ -30,7 +30,9 @@
 
   <div class="row">
     <div class="col-12">
-      <v-btn depressed @click="tableShow()">결과 테이블 비교</v-btn>
+      <router-link :to="{ name: 'table'}" target="_blank">
+        <v-btn depressed>결과 테이블 비교</v-btn>
+      </router-link>
     </div>
   </div>
 </div>
@@ -80,23 +82,6 @@ export default {
     }
   },
   methods: {
-    sendMsg: function() {
-      this.$http.post('/sendMsg', {
-          topic: 'test3',
-          messages: this.tmpMsg,
-          partition: 1
-        })
-        .then(response => {
-          console.log(response);
-          this.$store.commit('updateProducerMsg', {
-            value: this.tmpMsg
-          });
-          this.tmpMsg = "";
-        });
-    },
-    noSubmit: function() {
-      //console.log("no submit");
-    },
     handle(point, event) {
       const item = event[0];
       this.$store.commit('setTmpChartData', {

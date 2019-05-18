@@ -14,17 +14,6 @@
       <div class="collapse navbar-collapse">
         <ul class="navbar-nav ml-auto">
           <li class="nav-item">
-            <button class="navbar-toggler navbar-burger"
-                    type="button"
-                    @click="toggleSidebar"
-                    :aria-expanded="$sidebar.showSidebar"
-                    aria-label="Toggle navigation">
-              <span class="navbar-toggler-bar"></span>
-              <span class="navbar-toggler-bar"></span>
-              <span class="navbar-toggler-bar"></span>
-            </button>
-          </li>
-          <li class="nav-item">
             <a href="#" class="nav-link" v-if="socketStat">
               <div class="text-primary" >
                 <i class="ti-rss-alt"></i>

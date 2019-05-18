@@ -11,6 +11,7 @@ import Maps from "@/pages/Maps.vue";
 import Kafka from "@/pages/Kafka.vue";
 import Testbed from "@/pages/Testbed.vue";
 import Monitoring from "@/pages/Monitoring.vue";
+import Table from "@/pages/Table.vue";
 
 const routes = [
   {
@@ -60,6 +61,7 @@ const routes = [
       }
     ]
   },
+  { path: "/table", name: "table", component: Table },
   { path: "*", component: NotFound }
 ];
 
