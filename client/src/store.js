@@ -498,8 +498,8 @@ export const store = new Vuex.Store({
         let tmpResult = state.tmpNewDataSetObj;
         let tmpFailedResult = state.tmpFailedResult;
         let resultPercent = ((3*tmpResult.length) / 10)
-        console.log("length: " + resultPercent + "%");
-        console.log("failed_length: " + 100-resultPercent + "%");
+        //console.log("length: " + resultPercent + "%");
+        //console.log("failed_length: " + 100-resultPercent + "%");
 
 
         state.newDataSet.success.push({
@@ -544,7 +544,9 @@ export const store = new Vuex.Store({
             CIGAR_MAX: splited[27],
             SEX_CNCT: splited[28]
           }
+
           state.newDataSetObj.push(tmpjson);
+          if(i==10) console.log(state.newDataSetObj);
         }
         for (let i=0;i<tmpFailedResult.length;i++) {
           state.failedResult.push(tmpFailedResult[i]);

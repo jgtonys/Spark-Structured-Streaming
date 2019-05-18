@@ -62,20 +62,17 @@ export default {
       });*/
 
       // for test
-      console.log("result");
       this.$store.commit('updateNewDataSet', {
         value: data.value
       });
       //
     },
     failedResult(data) {
-      console.log("failedResult");
       this.$store.commit('updateTmpFailedResult', {
         value: data.value
       });
     },
     delimiter(data) {
-      console.log("delimiter");
       if(data.value === 'end') {
         this.$store.commit('resultDataPush');
       }
