@@ -9,7 +9,7 @@
       </card>
     </div>
   </div>
-
+<!--
   <div class="row">
     <table class="table table-dark">
       <thead>
@@ -26,11 +26,11 @@
       </tbody>
     </table>
   </div>
-
+-->
 
   <div class="row">
     <div class="col-12">
-      <v-btn depressed @click="sendMsg()">Send</v-btn>
+      <v-btn depressed @click="tableShow()">결과 테이블 비교</v-btn>
     </div>
   </div>
 </div>
