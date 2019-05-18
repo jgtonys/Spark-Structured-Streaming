@@ -15,13 +15,13 @@ export const store = new Vuex.Store({
     sparkSlave: false,
     sparkApp: false,
     sparkBase: "/home/sc2/spark-2.4.2-bin-hadoop2.7/",
-    kafkaProducer: false,
+    kafkaZookeeper: false,
     kafkaBroker: false,
     kafkaConsumer: false,
-    producer: {
+    zookeeper: {
       type: "black",
       icon: "pause",
-      title: "Kafka-Producer",
+      title: "Kafka-Zookeeper",
       value: "STOPPED",
       logData: "",
       footerText: "Click to Start",
@@ -120,8 +120,8 @@ export const store = new Vuex.Store({
     getSparkAppValue: function(state) {
       return state.sparkAppValue;
     },
-    getProducerValue: function(state) {
-      return state.producer;
+    getZookeeperValue: function(state) {
+      return state.zookeeper;
     },
     getBrokerValue: function(state) {
       return state.broker;
@@ -150,8 +150,8 @@ export const store = new Vuex.Store({
     getConsumerValue: function(state) {
       return state.consumer;
     },
-    getProducer: function(state) {
-      return state.kafkaProducer;
+    getZookeeper: function(state) {
+      return state.kafkaZookeeper;
     },
     getTmpChartData: function(state) {
       return state.tmpChartData;
@@ -316,34 +316,67 @@ export const store = new Vuex.Store({
     updateAppLog: function(state, payload) {
       state.sparkAppValue.logData = state.sparkAppValue.logData + '\n' + payload.value;
     },
-    setProducer: function(state, payload) {
-      state.kafkaProducer = !state.kafkaProducer;
+    setZookeeper: function(state, payload) {
+      state.kafkaZookeeper = !state.kafkaZookeeper;
     },
-    setProducerValue: function(state, payload) {
-      state.producer.loading = true;
-      state.producer.value = "LOADING..";
-      state.producer.footerText = state.producer.title + " loading..";
-      axios.get('/startProducer')
-        .then(response => {
-          console.log(response.data);
-          if (response.data == "ready") {
-            state.producer.loading = false;
-            state.producer.icon = "play_arrow";
-            state.producer.type = "black";
-            state.producer.value = "RUNNING";
-            state.producer.footerText = state.producer.title + " is running";
-            Notification.notify({
-              message: "Notification: Kafka Producer Started Successfully!",
-              icon: "ti-light-bulb",
-              horizontalAlign: "right",
-              verticalAlign: "top",
-              type: "success"
-            });
-          }
-        })
+    setZookeeperValue: function(state, payload) {
+      if(state.kafkaZookeeper) {
+        state.zookeeper.loading = true;
+        state.zookeeper.value = "LOADING..";
+        state.zookeeper.footerText = state.zookeeper.title + " loading..";
+        axios.get('/startZookeeper')
+          .then(response => {
+            console.log(response.data);
+            if (response.data == "ready") {
+              state.zookeeper.loading = false;
+              state.zookeeper.icon = "play_arrow";
+              state.zookeeper.type = "warning";
+              state.zookeeper.value = "RUNNING";
+              state.zookeeper.footerText = state.zookeeper.title + " is running";
+              Notification.notify({
+                message: "Notification: Kafka Zookeeper Started Successfully!",
+                icon: "ti-light-bulb",
+                horizontalAlign: "right",
+                verticalAlign: "top",
+                type: "success"
+              });
+            }
+          });
+      } else {
+        state.zookeeper.loading = true;
+        state.zookeeper.value = "LOADING..";
+        state.zookeeper.footerText = state.zookeeper.title + " stopping..";
+        axios.get('/stopZookeeper')
+          .then(response => {
+            console.log(response.data);
+            if (response.data[0] == 1) {
+              state.zookeeper.loading = false;
+              state.zookeeper.icon = "pause";
+              state.zookeeper.type = "black";
+              state.zookeeper.value = "STOPPED";
+              state.zookeeper.footerText = "START";
+              Notification.notify({
+                message: "Notification: Kafka Zookeeper Stopped Successfully!",
+                icon: "ti-light-bulb",
+                horizontalAlign: "right",
+                verticalAlign: "top",
+                type: "warning"
+              });
+            } else {
+              Notification.notify({
+                message: "Notification: Kafka Zookeeper Stopping Error!",
+                icon: "ti-light-bulb",
+                horizontalAlign: "right",
+                verticalAlign: "top",
+                type: "error"
+              });
+            }
+          });
+      }
+
     },
-    updateProducerMsg: function(state, payload) {
-      state.producer.logData = state.producer.logData + '\n' + payload.value;
+    updateZookeeperMsg: function(state, payload) {
+      state.zookeeper.logData = state.zookeeper.logData + '\n' + payload.value;
     },
     setBroker: function(state, payload) {
       state.kafkaBroker = !state.kafkaBroker;
@@ -503,11 +536,11 @@ export const store = new Vuex.Store({
       commit('setSparkApp');
       commit('setSparkAppValue');
     },
-    startProducer({
+    startZookeeper({
       commit
     }) {
-      commit('setProducer');
-      commit('setProducerValue');
+      commit('setZookeeper');
+      commit('setZookeeperValue');
     },
     toggleBroker({
       commit

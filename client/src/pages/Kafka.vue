@@ -7,6 +7,23 @@
         <div class="col-4">
           <stats-card>
             <div class="icon-big" slot="header">
+              <v-btn flat fab block :color="this.zookeeper.type" v-on:click="startZookeeper()" :loading="this.zookeeper.loading" :disabled="this.zookeeper.loading">
+                <v-icon size="50px">{{this.zookeeper.icon}}</v-icon>
+              </v-btn>
+            </div>
+            <div class="numbers" slot="content">
+              <p>{{this.zookeeper.title}}</p>
+              {{this.zookeeper.value}}
+            </div>
+            <div class="stats" slot="footer">
+              <i :class="this.zookeeper.footerIcon"></i> {{this.zookeeper.footerText}}
+            </div>
+          </stats-card>
+        </div>
+
+        <div class="col-4">
+          <stats-card>
+            <div class="icon-big" slot="header">
               <v-btn flat fab block :color="this.broker.type" v-on:click="toggleBroker()" :loading="this.broker.loading" :disabled="this.broker.loading">
                 <v-icon size="50px">{{this.broker.icon}}</v-icon>
               </v-btn>
@@ -21,22 +38,7 @@
           </stats-card>
         </div>
 
-        <div class="col-4">
-          <stats-card>
-            <div class="icon-big" slot="header">
-              <v-btn flat fab block :color="this.producer.type" v-on:click="startProducer()" :loading="this.producer.loading" :disabled="this.producer.loading">
-                <v-icon size="50px">{{this.producer.icon}}</v-icon>
-              </v-btn>
-            </div>
-            <div class="numbers" slot="content">
-              <p>{{this.producer.title}}</p>
-              {{this.producer.value}}
-            </div>
-            <div class="stats" slot="footer">
-              <i :class="this.producer.footerIcon"></i> {{this.producer.footerText}}
-            </div>
-          </stats-card>
-        </div>
+
         <div class="col-4">
           <stats-card>
             <div class="icon-big" slot="header">
@@ -74,8 +76,8 @@ export default {
     };
   },
   methods: {
-    startProducer: function() {
-      this.$store.dispatch('startProducer');
+    startZookeeper: function() {
+      this.$store.dispatch('startZookeeper');
     },
     toggleBroker: function() {
       this.$store.dispatch('toggleBroker');
@@ -86,8 +88,8 @@ export default {
     }
   },
   computed: mapGetters({
-    producer: 'getProducerValue',
-    producerStatus: 'getProducer',
+    zookeeper: 'getZookeeperValue',
+    zookeeperStatus: 'getZookeeper',
     broker: 'getBrokerValue',
     brokerStatus: 'getBroker',
     consumer: 'getConsumerValue',

@@ -10,17 +10,43 @@ var producer;
 var client = new kafka.KafkaClient();
 
 
-client.loadMetadataForTopics(["step2","step3","step4","step4_2"], (err, resp) => {
-  console.log(JSON.stringify(resp))
-});
+module.exports.startZookeeper = (req, res, next) => {
+  flag = false;
+  console.log("Kafka-Zookeeper Start!");
+  console.log(localData.kafka.cwd);
+  const exec = require('child_process').exec;
+  var checkscript = exec("netstat -ntlp | grep 2181", {
+      cwd: localData.kafka.cwd
+    },
+    (error, stdout, stderr) => {
+      if (error !== null) {
+        console.log("Kafka-Zookeeper Start!");
+        var yourscript = exec("bin/zookeeper-server-start.sh config/zookeeper.properties", {
+          cwd: localData.kafka.cwd
+        });
+      } else {
+        if (stdout.indexOf("0.0.0.0:2181") >= 0) flag = true;
+        console.log("Zookeeper Already Exist! : No Action");
+      }
+    });
+  res.send("Zookeeper ready");
+};
 
-module.exports.producerOn = (req, res, next) => {
-  console.log("Kafka-Producer Start!");
-  var Producer = kafka.Producer;
-  producer = new Producer(client);
-  producer.on('ready', function() {
-    res.send("ready");
-  });
+module.exports.stopZookeeper = (req, res, next) => {
+  const exec = require('child_process').exec;
+  var startscript = exec("bin/zookeeper-server-stop.sh", {
+      cwd: localData.kafka.cwd
+    },
+    (error, stdout, stderr) => {
+      console.log(stdout);
+      console.log(stderr);
+      if (error !== null) {
+        res.send([0, `exec error: ${error} \n ${stderr}`]);
+      } else {
+        res.send([1, stdout]);
+      }
+    });
+  console.log("Stop Zookeeper");
 };
 
 // For Debuging json files
@@ -79,8 +105,12 @@ module.exports.startBroker = (req, res, next) => {
         });
       } else {
         if (stdout.indexOf("0.0.0.0:9092") >= 0) flag = true;
-        console.log("exist!");
+        console.log("Kafka Broker Already Exist! : No Action");
       }
+    });
+
+    client.loadMetadataForTopics(["step2","step3","step4","step4_2"], (err, resp) => {
+      console.log(JSON.stringify(resp))
     });
   res.send("ready");
 };

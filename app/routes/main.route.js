@@ -13,8 +13,10 @@ module.exports = (app) => {
       .get(maincontroller.stopMaster);
     app.route('/stopSlave')
       .get(maincontroller.stopSlave);
-    app.route('/startProducer')
-      .get(kafkacontroller.producerOn);
+    app.route('/startZookeeper')
+      .get(kafkacontroller.startZookeeper);
+    app.route('/stopZookeeper')
+      .get(kafkacontroller.stopZookeeper);
     app.route('/sendMsg')
       .post(kafkacontroller.sendMsg);
     app.route('/startBroker')
