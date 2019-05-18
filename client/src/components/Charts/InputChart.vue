@@ -55,7 +55,7 @@ export default {
           yAxes: [{
             scaleLabel: {
               display: true,
-              labelString: 'Value'
+              labelString: '비율(%)'
             },
             ticks: {
               suggestedMin: 0
@@ -103,9 +103,6 @@ export default {
           data: []
         }]
       }
-    },
-    getRandomInt() {
-      return Math.floor(Math.random() * (50 - 5 + 1)) + 5
     }
   },
   computed: mapGetters({
