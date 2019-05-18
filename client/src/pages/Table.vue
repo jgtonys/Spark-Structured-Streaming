@@ -11,7 +11,7 @@
 <style lang="scss">
 </style>
 <script>
-import TopNavbar from "./TopNavbar.vue";
+import TopNavbar from "../layout/dashboard/TopNavbar.vue";
 export default {
   components: {
     TopNavbar
