@@ -82,7 +82,7 @@ export default {
         CIGAR_MAX: '',
         SEX_CNCT: ''
       }],
-      resultHeaders: [{
+      resultHeaders: [
         {
           text: 'InTime',
           value: 'InTime'
@@ -107,7 +107,7 @@ export default {
           text: 'DBP_AVG',
           value: 'DBP_AVG'
         }
-      }],
+      ],
       headers: [{
         {
           text: 'Calories',
