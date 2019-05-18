@@ -9,8 +9,6 @@ const server = express.listen(config.port, () => {
 
 const io = SocketIo(server);
 
-io.set('log level', 1); // vue-socket io debugging mode
-
 socketEvents(io);
 
 //const io = require('socket.io')(server);

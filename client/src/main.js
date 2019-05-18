@@ -19,7 +19,7 @@ const socketInstance = io('localhost:3000', {
 });
 */
 Vue.use(JsonViewer);
-Vue.use(new VueSocketIO({ debug: true, connection: socketInstance }));
+Vue.use(new VueSocketIO({ debug: false, connection: socketInstance })); // debug mode setting
 Vue.use(Vuetify);
 Vue.use(Notifications);
 
