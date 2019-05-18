@@ -1,6 +1,16 @@
 <template>
 <div>
   <div class="row">
+    <div class="col-12">
+      <card>
+        <div class="card-body">
+          <input-chart :handle="handle" />
+        </div>
+      </card>
+    </div>
+  </div>
+
+  <div class="row">
     <table class="table table-dark">
       <thead>
         <tr>

@@ -487,19 +487,19 @@ export const store = new Vuex.Store({
     resultDataPush: function(state, payload) {  // topic delimiter 로 보내라는 신호가 왔을 때
         let tmpResult = state.tmpNewDataSetObj;
         let tmpFailedResult = state.tmpFailedResult;
+        let resultPercent = (tmpResult.length / 10)
+        console.log("length: " + resultPercent + "%");
+        console.log("failed_length: " + 100-resultPercent + "%");
+
 
         state.newDataSet.success.push({
           x: Date.now(),
-          y: tmpResult.length // 대그룹화 성공한 개수 (잔존데이터)
+          y: resultPercent // 대그룹화 성공한 개수 (잔존데이터)
         });
         state.newDataSet.fail.push({
           x: Date.now(),
-          y: tmpFailedResult.length // 대그룹화 성공하지 못한 개수 (flag 데이터)
+          y: 100-resultPercent // 대그룹화 성공하지 못한 개수 (flag 데이터)
         });
-
-
-        console.log("length: " + tmpResult.length);
-        console.log("failed_length: " + tmpFailedResult.length);
 
         for (let i=0;i<tmpResult.length;i++) {
           state.newDataSetObj.push(tmpResult[i]);

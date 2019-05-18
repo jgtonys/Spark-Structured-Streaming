@@ -23,7 +23,7 @@ export default {
       chartoption: {
         title: {
           display: true,
-          text: 'Step 4 Streaming Results'
+          text: '결과 잔존률 그래프'
         },
         responsive: true,
         scales: {
@@ -37,10 +37,10 @@ export default {
                     y: Math.round(Math.random() * 30)
                   });*/
                   if(key==0) {
-                    dataset.data = this.newDataSet.G_SBP_DSTD;
+                    dataset.data = this.newDataSet.success;
                   }
                   if(key==1) {
-                    dataset.data = this.newDataSet.G_DBP_DSTD;
+                    dataset.data = this.newDataSet.fail;
                   }
 
                 });
@@ -87,7 +87,7 @@ export default {
     fillData() {
       this.datacollection = {
         datasets: [{
-          label: 'G_SBP_DSTD',
+          label: 'success',
           backgroundColor: "white",
           borderColor: "red",
           fill: false,
@@ -95,7 +95,7 @@ export default {
           borderDash: [8, 4],
           data: []
         }, {
-          label: 'G_DBP_DSTD',
+          label: 'fail',
           backgroundColor: "blue",
           borderColor: "blue",
           fill: false,
