@@ -1,6 +1,6 @@
 <template>
-  <div class="wrapper">
-    <div class="main-panel">
+  <div>
+    <div>
       <top-navbar></top-navbar>
 
       <h1>Table</h1>
