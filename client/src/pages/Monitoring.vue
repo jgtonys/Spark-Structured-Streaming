@@ -23,10 +23,6 @@
       <v-btn depressed @click="sendMsg()">Send</v-btn>
     </div>
   </div>
-
-
-
-
 </div>
 </template>
 <script>
@@ -43,64 +39,11 @@ export default {
   data() {
     return {
       tmpMsg: "",
-      dialog: false,
-      resultTableHeaders: [{
-          text: 'IDs',
-          value: 'id'
-        },
-        {
-          text: 'Window',
-          value: 'string'
-        },
-        {
-          text: 'Sexnum',
-          value: 'string'
-        },
-        {
-          text: 'Citycode',
-          value: 'string'
-        },
-        {
-          text: 'Agecode',
-          value: 'string'
-        },
-        {
-          text: 'G_BLOODSUGAR_AVG',
-          value: 'string'
-        }, {
-          text: 'G_BLOODSUGAR_DSTD',
-          value: 'string'
-        }, {
-          text: 'G_SBP_AVG',
-          value: 'string'
-        }, {
-          text: 'G_SBP_DSTD',
-          value: 'string'
-        }, {
-          text: 'G_DBP_AVG',
-          value: 'string'
-        }, {
-          text: 'G_DBP_DSTD',
-          value: 'string'
-        }, {
-          text: 'G_DRINK_CNCT',
-          value: 'string'
-        }, {
-          text: 'G_DRINK_DMX',
-          value: 'string'
-        }, {
-          text: 'GID_INDEX',
-          value: 'string'
-        }
-      ],
-      pagination: {
-        sortBy: 'id',
-        descending: true
-      }
+      dialog: false
     };
   },
   sockets: {
-    consumer(data) {
+    result(data) {
       /*
       this.$store.commit('updateConsumerData', {
         value: JSON.parse(data.value) // value: data
@@ -111,6 +54,17 @@ export default {
         value: data.value
       });
       //
+    },
+    failedResult(data) {
+      this.$store.commit('updateTmpFailedResult', {
+        value: data.value
+      });
+    }
+    delimiter(data) {
+      console.log(data);
+      if(data.value == "end") {
+        this.$store.commit('resultDataPush');
+      }
     }
   },
   methods: {

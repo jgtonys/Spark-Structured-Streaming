@@ -83,7 +83,9 @@ export default {
       this.$store.dispatch('toggleBroker');
     },
     startConsumer: function() {
-      this.$socket.emit('consumer',"step4");
+      this.$socket.emit('result',"step4");
+      this.$socket.emit('failedResult',"step4_2");
+      this.$socket.emit('delimiter',"delimiter");
       this.$store.commit('setKafkaConsumer');
     }
   },

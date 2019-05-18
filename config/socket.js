@@ -35,8 +35,8 @@ module.exports = (io) => {
       });
     });
 
-    socket.on('consumer', (payload) => {
-      console.log("Kafka-Consumer Listen at topic : ",payload);
+    socket.on('result', (payload) => {
+      console.log("Kafka Listen at topic : ",payload);
       var Consumer = kafka.Consumer;
       var client = new kafka.KafkaClient();
       var consumer = new Consumer(client, [{
@@ -47,15 +47,63 @@ module.exports = (io) => {
       });
 
       consumer.on('message', function(message) {
-        io.emit('consumer', message);
+        io.emit('result', message);
       });
 
       consumer.on('error', function(err) {
-        io.emit('consumer', err);
+        io.emit('result', err);
       })
 
       consumer.on('offsetOutOfRange', function(err) {
-        io.emit('consumer', err);
+        io.emit('result', err);
+      })
+    });
+
+    socket.on('failedResult', (payload) => {
+      console.log("Kafka Listen at topic : ",payload);
+      var Consumer = kafka.Consumer;
+      var client = new kafka.KafkaClient();
+      var consumer = new Consumer(client, [{
+        topic: payload,
+        partition: 0
+      }], {
+        autoCommit: false
+      });
+
+      consumer.on('message', function(message) {
+        io.emit('failedResult', message);
+      });
+
+      consumer.on('error', function(err) {
+        io.emit('failedResult', err);
+      })
+
+      consumer.on('offsetOutOfRange', function(err) {
+        io.emit('failedResult', err);
+      })
+    });
+
+    socket.on('delimiter', (payload) => {
+      console.log("Kafka-result delimiter Listen at topic : ",payload);
+      var Consumer = kafka.Consumer;
+      var client = new kafka.KafkaClient();
+      var consumer = new Consumer(client, [{
+        topic: payload,
+        partition: 0
+      }], {
+        autoCommit: false
+      });
+
+      consumer.on('message', function(message) {
+        io.emit('delimiter', message);
+      });
+
+      consumer.on('error', function(err) {
+        io.emit('delimiter', err);
+      })
+
+      consumer.on('offsetOutOfRange', function(err) {
+        io.emit('delimiter', err);
       })
     });
   });

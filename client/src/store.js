@@ -92,10 +92,13 @@ export const store = new Vuex.Store({
     inputFiles: [],
     consumerData: {},
     newDataSet: {
-      "G_SBP_DSTD" : [],
-      "G_DBP_DSTD" : []
+      "success" : [],
+      "fail" : []
     },
-    newDataSetObj: [],
+    tmpNewDataSetObj: [], //step4 result data 임시저장장소
+    newDataSetObj: [],  //step4 result data
+    tmpFailedResult: [],
+    failedResult: [],
     tmpChartData: {}
   },
   getters: {
@@ -473,10 +476,32 @@ export const store = new Vuex.Store({
           y: obj.G_DBP_DSTD // obj.numInputRows
         });
         */
-        
-        state.newDataSetObj.push(obj);
+        state.tmpNewDataSetObj.push(obj);
       //}
 
+    },
+    updateTmpFailedResult: function(state, payload) {
+        var obj = payload.value;
+        state.tmpFailedResult.push(obj);
+    },
+    resultDataPush: function(state, payload) {  // topic delimiter 로 보내라는 신호가 왔을 때
+        let tmpResult = state.tmpNewDataSetObj;
+        let tmpFailedResult = state.tmpFailedResult;
+
+        state.newDataSet.success.push({
+          x: Date.now(),
+          y: tmpResult.length() // 대그룹화 성공한 개수 (잔존데이터)
+        });
+        state.newDataSet.fail.push({
+          x: Date.now(),
+          y: tmpFailedResult.length() // 대그룹화 성공하지 못한 개수 (flag 데이터)
+        });
+
+
+        state.newDataSetObj.concat(tmpResult);
+        state.tmpNewDataSetObj = [];
+        state.failedResult.concat(tmpFailedResult);
+        state.tmpFailedResult = [];
     },
     setKafkaConsumer: function(state, payload) {
       state.kafkaConsumer = !state.kafkaConsumer;
