@@ -225,9 +225,7 @@ export default {
   },
   methods: {
     sync() {
-      this.resultData = this.$store.state.newDataSetObj;
       console.log(this.resultData);
-      console.log(this.$store.state.zookeeper);
     }
   },
   computed: mapGetters({
