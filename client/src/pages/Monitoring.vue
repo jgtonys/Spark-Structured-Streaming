@@ -30,7 +30,7 @@
 
   <div class="row">
     <div class="col-12">
-      <router-link :to="{ name: 'table'}" target="_blank">
+      <router-link :to="{ name: 'table'}">
         <v-btn depressed>결과 테이블 비교</v-btn>
       </router-link>
     </div>
