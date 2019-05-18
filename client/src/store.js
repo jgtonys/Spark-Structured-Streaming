@@ -490,11 +490,11 @@ export const store = new Vuex.Store({
 
         state.newDataSet.success.push({
           x: Date.now(),
-          y: tmpResult.length() // 대그룹화 성공한 개수 (잔존데이터)
+          y: tmpResult.length // 대그룹화 성공한 개수 (잔존데이터)
         });
         state.newDataSet.fail.push({
           x: Date.now(),
-          y: tmpFailedResult.length() // 대그룹화 성공하지 못한 개수 (flag 데이터)
+          y: tmpFailedResult.length // 대그룹화 성공하지 못한 개수 (flag 데이터)
         });
 
 
