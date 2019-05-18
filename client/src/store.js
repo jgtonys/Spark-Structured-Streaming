@@ -465,6 +465,16 @@ export const store = new Vuex.Store({
         var obj = payload.value;
 
         /*
+         WEIGHT_DSTD, , , , , , , , , , , , , , , , ,
+        [{
+            value: false,
+            name: 'Frozen Yogurt',
+            calories: 159,
+            fat: 6.0,
+            carbs: 24,
+            protein: 4.0,
+            iron: '1%'
+          }]
         var obj = JSON.parse(payload.value);
         console.log(obj);
         state.newDataSet.G_SBP_DSTD.push({
@@ -502,7 +512,39 @@ export const store = new Vuex.Store({
         });
 
         for (let i=0;i<tmpResult.length;i++) {
-          state.newDataSetObj.push(tmpResult[i]);
+          let splited = tmpResult[i].split(',');
+          let tmpjson = {
+            InTime: splited[0],
+            SEXNUM: splited[1],
+            CITYCODE: splited[2],
+            AGECODE: splited[3],
+            HEIGHT_MIN: splited[4],
+            HEIGHT_MAX: splited[5],
+            HEIGHT_AVG: splited[6],
+            HEIGHT_DSTD: splited[7],
+            WEIGHT_MIN: splited[8],
+            WEIGHT_MAX: splited[9],
+            WEIGHT_AVG: splited[10],
+            WEIGHT_DSTD: splited[11],
+            BLOODSUGAR_MIN: splited[12],
+            BLOODSUGAR_MAX: splited[13],
+            BLOODSUGAR_AVG: splited[14],
+            BLOODSUGAR_DSTD: splited[15],
+            SBP_MIN: splited[16],
+            SBP_MAX: splited[17],
+            SBP_AVG: splited[18],
+            SBP_DSTD: splited[19],
+            DBP_MIN: splited[20],
+            DBP_MAX: splited[21],
+            DBP_AVG: splited[22],
+            DBP_DSTD: splited[23],
+            DRINK_CNCT: splited[24],
+            DRINK_MAX: splited[25],
+            CIGAR_CNCT: splited[26],
+            CIGAR_MAX: splited[27],
+            SEX_CNCT: splited[28]
+          }
+          state.newDataSetObj.push(tmpjson);
         }
         for (let i=0;i<tmpFailedResult.length;i++) {
           state.failedResult.push(tmpFailedResult[i]);

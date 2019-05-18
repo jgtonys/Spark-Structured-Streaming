@@ -5,17 +5,19 @@
 
     <h1>Table</h1>
 
+    <v-btn @click="sync">데이터 싱크</v-btn>
+
       <v-layout row wrap>
       <v-flex xs6>
-        <v-data-table :headers="headers" :items="desserts" :loading="true" class="elevation-1" :rows-per-page-items="[50, 100]">
+        <v-data-table :headers="resultHeaders" :items="resultData" :loading="true" class="elevation-1" :rows-per-page-items="[50, 100]">
           <v-progress-linear slot="progress" color="blue" indeterminate></v-progress-linear>
           <template slot="items" slot-scope="props">
-            <td>{{ props.item.name }}</td>
-            <td class="text-xs-right">{{ props.item.calories }}</td>
-            <td class="text-xs-right">{{ props.item.fat }}</td>
-            <td class="text-xs-right">{{ props.item.carbs }}</td>
-            <td class="text-xs-right">{{ props.item.protein }}</td>
-            <td class="text-xs-right">{{ props.item.iron }}</td>
+            <td class="text-xs-right">{{ props.item.InTime }}</td>
+            <td class="text-xs-right">{{ props.item.HEIGHT_AVG }}</td>
+            <td class="text-xs-right">{{ props.item.WEIGHT_AVG }}</td>
+            <td class="text-xs-right">{{ props.item.BLOODSUGAR_AVG }}</td>
+            <td class="text-xs-right">{{ props.item.SBP_AVG }}</td>
+            <td class="text-xs-right">{{ props.item.DBP_AVG }}</td>
           </template>
         </v-data-table>
       </v-flex>
@@ -23,7 +25,6 @@
         <v-data-table :headers="headers" :items="desserts" :loading="true" class="elevation-1" :rows-per-page-items="[50, 100]">
           <v-progress-linear slot="progress" color="blue" indeterminate></v-progress-linear>
           <template slot="items" slot-scope="props">
-            <td>{{ props.item.name }}</td>
             <td class="text-xs-right">{{ props.item.calories }}</td>
             <td class="text-xs-right">{{ props.item.fat }}</td>
             <td class="text-xs-right">{{ props.item.carbs }}</td>
@@ -41,18 +42,73 @@
 </style>
 <script>
 import TopNavbar from "../layout/dashboard/TopNavbar.vue";
+import {
+  mapGetters
+} from 'vuex';
 export default {
   components: {
     TopNavbar
   },
   data() {
     return {
-      headers: [{
-          text: 'Dessert (100g serving)',
-          align: 'left',
-          sortable: false,
-          value: 'name'
+      resultData: [{
+        InTime: '',
+        SEXNUM: '',
+        CITYCODE: '',
+        AGECODE: '',
+        HEIGHT_MIN: '',
+        HEIGHT_MAX: '',
+        HEIGHT_AVG: '',
+        HEIGHT_DSTD: '',
+        WEIGHT_MIN: '',
+        WEIGHT_MAX: '',
+        WEIGHT_AVG: '',
+        WEIGHT_DSTD: '',
+        BLOODSUGAR_MIN: '',
+        BLOODSUGAR_MAX: '',
+        BLOODSUGAR_AVG: '',
+        BLOODSUGAR_DSTD: '',
+        SBP_MIN: '',
+        SBP_MAX: '',
+        SBP_AVG: '',
+        SBP_DSTD: '',
+        DBP_MIN: '',
+        DBP_MAX: '',
+        DBP_AVG: '',
+        DBP_DSTD: '',
+        DRINK_CNCT: '',
+        DRINK_MAX: '',
+        CIGAR_CNCT: '',
+        CIGAR_MAX: '',
+        SEX_CNCT: ''
+      }],
+      resultHeaders: [{
+        {
+          text: 'InTime',
+          value: 'InTime'
         },
+        {
+          text: 'HEIGHT_AVG',
+          value: 'HEIGHT_AVG'
+        },
+        {
+          text: 'WEIGHT_AVG',
+          value: 'WEIGHT_AVG'
+        },
+        {
+          text: 'BLOODSUGAR_AVG',
+          value: 'BLOODSUGAR_AVG'
+        },
+        {
+          text: 'SBP_AVG',
+          value: 'SBP_AVG'
+        },
+        {
+          text: 'DBP_AVG',
+          value: 'DBP_AVG'
+        }
+      }],
+      headers: [{
         {
           text: 'Calories',
           value: 'calories'
@@ -168,7 +224,10 @@ export default {
     }
   },
   methods: {
-
+    sync() {
+      console.log("sync!");
+      this.resultData = this.$store.getters.getNewDataSetObj;
+    }
   }
 };
 </script>
