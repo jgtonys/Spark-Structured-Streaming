@@ -5,7 +5,6 @@
 
     <h1>Table</h1>
 
-    <v-container>
       <v-layout row wrap>
       <v-flex xs6>
         <v-data-table :headers="headers" :items="desserts" :loading="true" class="elevation-1" :rows-per-page-items="[50, 100]">
@@ -34,7 +33,6 @@
         </v-data-table>
         </v-flex>
       </v-layout>
-    </v-container>
 
   </div>
 </div>
