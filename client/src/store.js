@@ -499,13 +499,16 @@ export const store = new Vuex.Store({
 
 
         console.log("length: " + tmpResult.length);
+        console.log("failed_length: " + tmpFailedResult.length);
 
-        state.newDataSetObj.concat(tmpResult);
-
-        //console.log(state.newDataSetObj);
+        for (let i=0;i<tmpResult.length;i++) {
+          state.newDataSetObj.push(tmpResult[i]);
+        }
+        for (let i=0;i<tmpFailedResult.length;i++) {
+          state.failedResult.push(tmpFailedResult[i]);
+        }
 
         state.tmpNewDataSetObj = [];
-        state.failedResult.concat(tmpFailedResult);
         state.tmpFailedResult = [];
     },
     setKafkaConsumer: function(state, payload) {
