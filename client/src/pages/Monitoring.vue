@@ -1,39 +1,20 @@
 <template>
 <div>
   <div class="row">
-    <div class="col-12">
-      <v-data-table :headers="resultTableHeaders" :items="dataSetObj" class="elevation-1" :pagination.sync="pagination" select-all item-key="id">
-        <template v-slot:no-data>
-          <v-alert :value="true" color="error" icon="warning">
-            데이터가 존재하지 않습니다
-          </v-alert>
-        </template>
-        <template v-slot:headers="props">
-          <tr>
-            <th v-for="header in props.headers" :key="header.text" :class="['column sortable', pagination.descending ? 'desc' : 'asc', header.value === pagination.sortBy ? 'active' : '']" @click="changeSort(header.value)">
-              <v-icon small>arrow_upward</v-icon>
-              {{ header.text }}
-            </th>
-          </tr>
-        </template>
-        <template v-slot:items="props">
-          <td class="text-xs-right">{{ props.index }}</td>
-          <td class="text-xs-right">{{ props.item.window.start }}</td>
-          <td class="text-xs-right">{{ props.item.SEXNUM_ }}</td>
-          <td class="text-xs-right">{{ props.item.CITYCODE_ }}</td>
-          <td class="text-xs-right">{{ props.item.AGECODE_ }}</td>
-          <td class="text-xs-right">{{ props.item.G_BLOODSUGAR_AVG }}</td>
-          <td class="text-xs-right">{{ props.item.G_BLOODSUGAR_DSTD }}</td>
-          <td class="text-xs-right">{{ props.item.G_SBP_AVG }}</td>
-          <td class="text-xs-right">{{ props.item.G_SBP_DSTD }}</td>
-          <td class="text-xs-right">{{ props.item.G_DBP_AVG }}</td>
-          <td class="text-xs-right">{{ props.item.G_DBP_DSTD }}</td>
-          <td class="text-xs-right">{{ props.item.G_DRINK_CNCT }}</td>
-          <td class="text-xs-right">{{ props.item.G_DRINK_DMX }}</td>
-          <td class="text-xs-right">{{ props.item.GID_INDEX }}</td>
-        </template>
-      </v-data-table>
-    </div>
+    <table class="table table-dark">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Data</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="(d,i) in dataSetObj">
+          <th scope="row">{{ i }}</th>
+          <td>{{ d }}</td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 
 

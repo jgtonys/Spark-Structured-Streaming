@@ -457,6 +457,11 @@ export const store = new Vuex.Store({
       //console.log(payload.value.slice(0, 20));
       //if (payload.value.slice(0, 20) == "Query made progress:") {
         //var obj = JSON.parse(payload.value.slice(21));
+
+
+        var obj = payload.value;
+
+        /*
         var obj = JSON.parse(payload.value);
         console.log(obj);
         state.newDataSet.G_SBP_DSTD.push({
@@ -467,6 +472,8 @@ export const store = new Vuex.Store({
           x: Date.now(),
           y: obj.G_DBP_DSTD // obj.numInputRows
         });
+        */
+        
         state.newDataSetObj.push(obj);
       //}
 
