@@ -61,7 +61,8 @@ export default {
       });
     },
     delimiter(data) {
-      if(data.value.equals("end")) {
+      console.log(data.value);
+      if(data.value === 'end') {
         console.log(data);
         this.$store.commit('resultDataPush');
       }
