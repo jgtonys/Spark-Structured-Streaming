@@ -51,7 +51,7 @@ export default {
   },
   data() {
     return {
-      resultData: [{
+      /*resultData: [{
         InTime: '',
         SEXNUM: '',
         CITYCODE: '',
@@ -81,7 +81,7 @@ export default {
         CIGAR_CNCT: '',
         CIGAR_MAX: '',
         SEX_CNCT: ''
-      }],
+      }],*/
       resultHeaders: [
         {
           text: 'InTime',
@@ -229,6 +229,9 @@ export default {
       console.log(this.resultData);
       console.log(this.$store.state.zookeeper);
     }
-  }
+  },
+  computed: mapGetters({
+    resultData: 'getNewDataSetObj'
+  })
 };
 </script>
