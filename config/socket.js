@@ -43,7 +43,7 @@ module.exports = (io) => {
         topic: payload,
         partition: 0
       }], {
-        autoCommit: false
+        autoCommit: true
       });
 
       consumer.on('message', function(message) {
@@ -67,7 +67,7 @@ module.exports = (io) => {
         topic: payload,
         partition: 0
       }], {
-        autoCommit: false
+        autoCommit: true
       });
 
       consumer.on('message', function(message) {
@@ -91,7 +91,7 @@ module.exports = (io) => {
         topic: payload,
         partition: 0
       }], {
-        autoCommit: false
+        autoCommit: true
       });
 
       consumer.on('message', function(message) {
