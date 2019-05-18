@@ -5,7 +5,7 @@
 
     <h1>Table</h1>
 
-    <v-container grid-list-md text-xs-center>
+    <v-container grid-list-xs align-content-space-around>
       <v-layout row wrap>
       <v-flex xs6>
         <v-data-table :headers="headers" :items="desserts" :loading="true" class="elevation-1" :rows-per-page-items="[50, 100]">
