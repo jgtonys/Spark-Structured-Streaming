@@ -108,7 +108,7 @@ export default {
           value: 'DBP_AVG'
         }
       ],
-      headers: [{
+      headers: [
         {
           text: 'Calories',
           value: 'calories'
