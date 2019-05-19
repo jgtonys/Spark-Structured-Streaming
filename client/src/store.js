@@ -618,12 +618,12 @@ export const store = new Vuex.Store({
       state.tmpChartData = payload.data;
     },
     setInputFiles: function(state, payload) {
-      console.log(payload.value);
       let inputList = payload.value;
       for (let i=0;i<inputList.length;i++) {
         let tmpjson = { text : inputList[i], value : inputList[i]};
         state.inputFiles.push(tmpjson);
       }
+      console.log(state.inputFiles);
     }
   },
   actions: {
