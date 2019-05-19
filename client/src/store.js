@@ -561,6 +561,7 @@ export const store = new Vuex.Store({
     },
     originalDataPush: function(state, payload) {
       console.log(payload.value);
+      //let originalLength = payload.value
     },
     setKafkaConsumer: function(state, payload) {
       state.kafkaConsumer = !state.kafkaConsumer;
