@@ -251,7 +251,7 @@ export default {
       let options = this.appOptions;
       let cwd = this.sparkBase;
       var input = this.selectedInputFIle;
-      console.log("blabla : " + input);
+      console.log(input);
       //this.$socket.emit('application', options, input, cwd); // input 추가해야함
       //this.$store.dispatch('toggleSparkApp');
     },
