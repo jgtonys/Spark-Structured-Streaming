@@ -233,7 +233,6 @@ export default {
       dialogTargetValue: "",
       addFileDialog: false,
       changedValue: "",
-      selectedInputFile: "",
       dropzoneOptions: {
         url: '/uploadInputFile',
         thumbnailWidth: 50, // px
