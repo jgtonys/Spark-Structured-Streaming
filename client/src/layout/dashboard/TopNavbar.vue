@@ -104,7 +104,6 @@ export default {
       }
     },
     original(data) {
-      console.log(data);
       this.$store.commit('originalDataPush', {
         value: data.value
       });
