@@ -110,7 +110,7 @@ module.exports.startBroker = (req, res, next) => {
     });
 
     var client = new kafka.KafkaClient();
-    client.loadMetadataForTopics(["step2","step3","step4","step4_2"], (err, resp) => {
+    client.loadMetadataForTopics(["step2","step3","step4","step4_2","delimiter","original"], (err, resp) => {
       console.log(JSON.stringify(resp))
     });
   res.send("ready");
