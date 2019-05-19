@@ -104,9 +104,10 @@ export default {
       }
     },
     original(data) {
-      this.$store.commit('originalDataPush'), {
+      console.log(data);
+      this.$store.commit('originalDataPush', {
         value: data.value
-      };
+      });
     }
   },
   methods: {
