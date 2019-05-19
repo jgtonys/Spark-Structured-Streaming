@@ -3,8 +3,6 @@
   <div>
     <top-navbar></top-navbar>
 
-    <h1>Table</h1>
-
     <v-btn @click="sync">데이터 싱크</v-btn>
 
       <v-layout row wrap>
