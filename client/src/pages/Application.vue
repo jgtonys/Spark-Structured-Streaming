@@ -26,6 +26,8 @@
             <v-select
               v-model="selectedInputFile"
               :items="inputFiles"
+              item-text="text"
+              item-value="value"
               label="입력 파일을 선택하세요"
             ></v-select>
             <v-btn color="green darken-1" flat="flat" @click="addFileDialog = true">
