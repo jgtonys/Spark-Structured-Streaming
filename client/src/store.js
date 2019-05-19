@@ -99,6 +99,7 @@ export const store = new Vuex.Store({
     newDataSetObj: [],  //step4 result data
     tmpFailedResult: [],
     failedResult: [],
+    originalData: [],
     tmpChartData: {}
   },
   getters: {
@@ -146,6 +147,9 @@ export const store = new Vuex.Store({
     },
     getNewDataSetObj: function(state) {
       return state.newDataSetObj;
+    },
+    getOriginalData: function(state) {
+      return state.originalData;
     },
     getConsumer: function(state) {
       return state.kafkaConsumer;
@@ -555,6 +559,9 @@ export const store = new Vuex.Store({
         state.tmpNewDataSetObj = [];
         state.tmpFailedResult = [];
     },
+    originalDataPush: function(state, payload) {
+      console.log(payload.value);
+    }
     setKafkaConsumer: function(state, payload) {
       state.kafkaConsumer = !state.kafkaConsumer;
       if (state.kafkaConsumer) {

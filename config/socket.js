@@ -106,5 +106,29 @@ module.exports = (io) => {
         io.emit('delimiter', err);
       })
     });
+
+    socket.on('original', (payload) => {
+      console.log("Kafka-origial Listen at topic : ",payload);
+      var Consumer = kafka.Consumer;
+      var client = new kafka.KafkaClient();
+      var consumer = new Consumer(client, [{
+        topic: payload,
+        partition: 0
+      }], {
+        autoCommit: true
+      });
+
+      consumer.on('message', function(message) {
+        io.emit('original', message);
+      });
+
+      consumer.on('error', function(err) {
+        io.emit('original', err);
+      })
+
+      consumer.on('offsetOutOfRange', function(err) {
+        io.emit('original', err);
+      })
+    });
   });
 };

@@ -102,6 +102,11 @@ export default {
       if(data.value === 'end') {
         this.$store.commit('resultDataPush');
       }
+    },
+    original(data) {
+      this.$store.commit('originalDataPush'), {
+        value: data.value
+      };
     }
   },
   methods: {
