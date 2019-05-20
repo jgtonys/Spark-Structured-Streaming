@@ -99,6 +99,7 @@ export const store = new Vuex.Store({
     newDataSetObj: [],  //step4 result data
     tmpFailedResult: [],
     failedResult: [],
+    tmpOriginalData: [],
     originalData: [],
     tmpChartData: {}
   },
@@ -519,7 +520,6 @@ export const store = new Vuex.Store({
           }
 
           state.newDataSetObj.push(tmpjson);
-          if(i==10) console.log(state.newDataSetObj);
         }
         for (let i=0;i<tmpFailedResult.length;i++) {
           state.failedResult.push(tmpFailedResult[i]);
@@ -528,32 +528,37 @@ export const store = new Vuex.Store({
         state.tmpNewDataSetObj = [];
         state.tmpFailedResult = [];
     },
+    tmpOriginalDataPush: function(state, payload) {
+      state.tmpOriginalData.push(payload.value);
+    },
     originalDataPush: function(state, payload) {
-      let originalData = payload.value;
-      let splited = originalData.split(',');
-      let tmpjson = {
-        YEAR: splited[0],
-        SNUM: parseFloat(splited[1]).toFixed(2),
-        SEXNUM: parseFloat(splited[2]).toFixed(2),
-        AGECODE: parseFloat(splited[3]).toFixed(2),
-        CITYCODE: parseFloat(splited[4]).toFixed(2),
-        HEIGHT: parseFloat(splited[5]).toFixed(2),
-        WEIGHT: parseFloat(splited[6]).toFixed(2),
-        WAIST: parseFloat(splited[7]).toFixed(2),
-        EYELEFT: parseFloat(splited[8]).toFixed(2),
-        EYERIGHT: parseFloat(splited[9]).toFixed(2),
-        SBP: parseFloat(splited[10]).toFixed(2),
-        DBP: parseFloat(splited[11]).toFixed(2),
-        BLOODSUGAR: parseFloat(splited[12]).toFixed(2),
-        CIGAR: parseFloat(splited[13]).toFixed(2),
-        DRINK: parseFloat(splited[14]).toFixed(2),
-        SEX: parseFloat(splited[15]).toFixed(2),
-        COMPLETEPK_: splited[16],
-        GID_INDEX_: splited[17],
-        BG_INDEX: splited[18],
-        InTime: splited[19]
+      let tmpData = state.tmpOriginalData;
+      for (let i=0;i<tmpData.length;i++) {
+        let splited = tmpData[i].split(',');
+        let tmpjson = {
+          YEAR: splited[0],
+          SNUM: parseFloat(splited[1]).toFixed(2),
+          SEXNUM: parseFloat(splited[2]).toFixed(2),
+          AGECODE: parseFloat(splited[3]).toFixed(2),
+          CITYCODE: parseFloat(splited[4]).toFixed(2),
+          HEIGHT: parseFloat(splited[5]).toFixed(2),
+          WEIGHT: parseFloat(splited[6]).toFixed(2),
+          WAIST: parseFloat(splited[7]).toFixed(2),
+          EYELEFT: parseFloat(splited[8]).toFixed(2),
+          EYERIGHT: parseFloat(splited[9]).toFixed(2),
+          SBP: parseFloat(splited[10]).toFixed(2),
+          DBP: parseFloat(splited[11]).toFixed(2),
+          BLOODSUGAR: parseFloat(splited[12]).toFixed(2),
+          CIGAR: parseFloat(splited[13]).toFixed(2),
+          DRINK: parseFloat(splited[14]).toFixed(2),
+          SEX: parseFloat(splited[15]).toFixed(2),
+          COMPLETEPK_: splited[16],
+          GID_INDEX_: splited[17],
+          BG_INDEX: splited[18],
+          InTime: splited[19]
+        }
+        state.originalData.push(tmpjson);
       }
-      state.originalData.push(tmpjson);
     },
     setKafkaConsumer: function(state, payload) {
       state.kafkaConsumer = !state.kafkaConsumer;

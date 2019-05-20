@@ -42,7 +42,7 @@ export default {
 
                 });
               },
-              duration: 20000,
+              duration: 60000,
               ttl: 60000,
               refresh: 1000,
               delay: 2000,
