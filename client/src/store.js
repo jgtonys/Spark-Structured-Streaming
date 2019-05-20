@@ -557,7 +557,7 @@ export const store = new Vuex.Store({
           BG_INDEX: splited[18],
           InTime: splited[19]
         }
-        if (tmpjson.Intime != "") state.originalData.push(tmpjson);
+        if (!tmpjson.Intime.equals("")) state.originalData.push(tmpjson);
       }
     },
     setKafkaConsumer: function(state, payload) {
