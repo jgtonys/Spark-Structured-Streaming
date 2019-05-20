@@ -5,6 +5,7 @@
 </template>
 
 <script>
+// nagix.github.io/chartjs-plugin-streaming/samples/interactions.html
 import LineChart from './LineChart.js'
 import 'chartjs-plugin-streaming';
 import {
@@ -32,10 +33,6 @@ export default {
             realtime: {
               onRefresh: (chart) => {
                 chart.data.datasets.forEach((dataset,key) => {
-                  /*dataset.data.push({
-                    x: Date.now(),
-                    y: Math.round(Math.random() * 30)
-                  });*/
                   if(key==0) {
                     dataset.data = this.newDataSet.success;
                   }
@@ -45,10 +42,10 @@ export default {
 
                 });
               },
-              duration: 400000,
-              ttl: 400000,
-              refresh: 2000,
-              delay: 0,
+              duration: 20000,
+              ttl: 60000,
+              refresh: 1000,
+              delay: 2000,
 
             }
           }],
@@ -72,7 +69,7 @@ export default {
         },
         plugins: {
           streaming: {
-            frameRate: 60
+            frameRate: 30
           }
         },
         maintainAspectRatio:false,
