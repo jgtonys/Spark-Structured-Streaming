@@ -24,10 +24,10 @@
       <v-card class="p-3" flat>
           <v-card-actions>
             <v-select
-              v-model="selectedInputFile"
               :items="inputFiles"
               item-text="text"
               item-value="value"
+              @change="changeInput"
               label="입력 파일을 선택하세요"
             ></v-select>
             <v-btn color="green darken-1" flat="flat" @click="addFileDialog = true">
@@ -233,6 +233,7 @@ export default {
       dialogTargetValue: "",
       addFileDialog: false,
       changedValue: "",
+      selectedInputFile: "",
       dropzoneOptions: {
         url: '/uploadInputFile',
         thumbnailWidth: 50, // px
@@ -284,6 +285,10 @@ export default {
             value: response.data
           });
         });
+    },
+    changeInput: function(input) {
+      this.selectedInputFIle = input.value;
+      console.log(input);
     }
   },
   updated: function() {
