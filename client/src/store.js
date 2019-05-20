@@ -461,38 +461,8 @@ export const store = new Vuex.Store({
       state.consumerData = payload.value;
     },
     updateNewDataSet: function(state, payload) {
-      //console.log(payload.value.slice(0, 20));
-      //if (payload.value.slice(0, 20) == "Query made progress:") {
-        //var obj = JSON.parse(payload.value.slice(21));
-
-
         var obj = payload.value;
-
-        /*
-         WEIGHT_DSTD, , , , , , , , , , , , , , , , ,
-        [{
-            value: false,
-            name: 'Frozen Yogurt',
-            calories: 159,
-            fat: 6.0,
-            carbs: 24,
-            protein: 4.0,
-            iron: '1%'
-          }]
-        var obj = JSON.parse(payload.value);
-        console.log(obj);
-        state.newDataSet.G_SBP_DSTD.push({
-          x: Date.now(),
-          y: obj.G_SBP_DSTD // obj.numInputRows
-        });
-        state.newDataSet.G_DBP_DSTD.push({
-          x: Date.now(),
-          y: obj.G_DBP_DSTD // obj.numInputRows
-        });
-        */
         state.tmpNewDataSetObj.push(obj);
-      //}
-
     },
     updateTmpFailedResult: function(state, payload) {
         var obj = payload.value;
@@ -504,7 +474,6 @@ export const store = new Vuex.Store({
         let resultPercent = ((3*tmpResult.length) / 10)
         //console.log("length: " + resultPercent + "%");
         //console.log("failed_length: " + 100-resultPercent + "%");
-
 
         state.newDataSet.success.push({
           x: Date.now(),
