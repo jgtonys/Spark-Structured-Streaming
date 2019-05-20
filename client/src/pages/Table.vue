@@ -7,15 +7,15 @@
 
     <v-layout row wrap>
       <v-flex xs6>
-        <v-data-table :headers="originalHeaders" :items="resultData" :loading="true" class="elevation-1" :rows-per-page-items="[50, 100]">
+        <v-data-table :headers="originalHeaders" :items="originalData" :loading="true" class="elevation-1" :rows-per-page-items="[50, 100]">
           <v-progress-linear slot="progress" color="blue" indeterminate></v-progress-linear>
           <template slot="items" slot-scope="props">
-            <td class="text-xs-right">{{ props.item.InTime }}</td>
-            <td class="text-xs-right">{{ props.item.HEIGHT }}</td>
-            <td class="text-xs-right">{{ props.item.WEIGHT }}</td>
-            <td class="text-xs-right">{{ props.item.BLOODSUGAR }}</td>
-            <td class="text-xs-right">{{ props.item.SBP }}</td>
-            <td class="text-xs-right">{{ props.item.DBP }}</td>
+            <td>{{ props.item.InTime }}</td>
+            <td>{{ props.item.HEIGHT }}</td>
+            <td>{{ props.item.WEIGHT }}</td>
+            <td>{{ props.item.BLOODSUGAR }}</td>
+            <td>{{ props.item.SBP }}</td>
+            <td>{{ props.item.DBP }}</td>
           </template>
         </v-data-table>
       </v-flex>
@@ -23,12 +23,12 @@
         <v-data-table :headers="resultHeaders" :items="resultData" :loading="true" class="elevation-1" :rows-per-page-items="[50, 100]">
           <v-progress-linear slot="progress" color="blue" indeterminate></v-progress-linear>
           <template slot="items" slot-scope="props">
-            <td class="text-xs-right">{{ props.item.InTime }}</td>
-            <td class="text-xs-right">{{ props.item.HEIGHT_AVG }}</td>
-            <td class="text-xs-right">{{ props.item.WEIGHT_AVG }}</td>
-            <td class="text-xs-right">{{ props.item.BLOODSUGAR_AVG }}</td>
-            <td class="text-xs-right">{{ props.item.SBP_AVG }}</td>
-            <td class="text-xs-right">{{ props.item.DBP_AVG }}</td>
+            <td>{{ props.item.InTime }}</td>
+            <td>{{ props.item.HEIGHT_AVG }}</td>
+            <td>{{ props.item.WEIGHT_AVG }}</td>
+            <td>{{ props.item.BLOODSUGAR_AVG }}</td>
+            <td>{{ props.item.SBP_AVG }}</td>
+            <td>{{ props.item.DBP_AVG }}</td>
           </template>
         </v-data-table>
       </v-flex>
