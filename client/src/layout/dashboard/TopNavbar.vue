@@ -101,7 +101,6 @@ export default {
     delimiter(data) {
       if(data.value === 'end') {
         this.$store.commit('resultDataPush');
-        this.$store.commit('originalDataPush');
       }
     },
     original(data) {

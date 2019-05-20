@@ -135,7 +135,7 @@ export default {
   },
   methods: {
     sync() {
-      console.log(this.resultData);
+      this.$store.commit('originalDataPush');
     }
   },
   computed: mapGetters({

@@ -518,7 +518,6 @@ export const store = new Vuex.Store({
             CIGAR_MAX: parseFloat(splited[27]).toFixed(2),
             SEX_CNCT: splited[28]
           }
-
           state.newDataSetObj.push(tmpjson);
         }
         for (let i=0;i<tmpFailedResult.length;i++) {
