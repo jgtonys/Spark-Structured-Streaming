@@ -287,8 +287,7 @@ export default {
         });
     },
     changeInput: function(input) {
-      this.selectedInputFIle = input.value;
-      console.log(input);
+      this.selectedInputFIle = input;
     }
   },
   updated: function() {
