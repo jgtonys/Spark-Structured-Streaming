@@ -531,6 +531,7 @@ export const store = new Vuex.Store({
       state.tmpOriginalData.push(payload.value);
     },
     originalDataPush: function(state, payload) {
+      state.originalData = [];
       let tmpData = state.tmpOriginalData;
       for (let i=0;i<tmpData.length;i++) {
         let splited = tmpData[i].split(',');
@@ -556,7 +557,7 @@ export const store = new Vuex.Store({
           BG_INDEX: splited[18],
           InTime: splited[19]
         }
-        state.originalData.push(tmpjson);
+        if (tmpjson.Intime != "") state.originalData.push(tmpjson);
       }
     },
     setKafkaConsumer: function(state, payload) {
