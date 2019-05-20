@@ -487,38 +487,40 @@ export const store = new Vuex.Store({
 
         for (let i=0;i<tmpResult.length;i++) {
           let splited = tmpResult[i].split(',');
-          let tmpjson = {
-            InTime: splited[0],
-            SEXNUM: parseFloat(splited[1]).toFixed(2),
-            CITYCODE: parseFloat(splited[2]).toFixed(2),
-            AGECODE: parseFloat(splited[3]).toFixed(2),
-            HEIGHT_MIN: parseFloat(splited[4]).toFixed(2),
-            HEIGHT_MAX: parseFloat(splited[5]).toFixed(2),
-            HEIGHT_AVG: parseFloat(splited[6]).toFixed(2),
-            HEIGHT_DSTD: parseFloat(splited[7]).toFixed(2),
-            WEIGHT_MIN: parseFloat(splited[8]).toFixed(2),
-            WEIGHT_MAX: parseFloat(splited[9]).toFixed(2),
-            WEIGHT_AVG: parseFloat(splited[10]).toFixed(2),
-            WEIGHT_DSTD: parseFloat(splited[11]).toFixed(2),
-            BLOODSUGAR_MIN: parseFloat(splited[12]).toFixed(2),
-            BLOODSUGAR_MAX: parseFloat(splited[13]).toFixed(2),
-            BLOODSUGAR_AVG: parseFloat(splited[14]).toFixed(2),
-            BLOODSUGAR_DSTD: parseFloat(splited[15]).toFixed(2),
-            SBP_MIN: parseFloat(splited[16]).toFixed(2),
-            SBP_MAX: parseFloat(splited[17]).toFixed(2),
-            SBP_AVG: parseFloat(splited[18]).toFixed(2),
-            SBP_DSTD: parseFloat(splited[19]).toFixed(2),
-            DBP_MIN: parseFloat(splited[20]).toFixed(2),
-            DBP_MAX: parseFloat(splited[21]).toFixed(2),
-            DBP_AVG: parseFloat(splited[22]).toFixed(2),
-            DBP_DSTD: parseFloat(splited[23]).toFixed(2),
-            DRINK_CNCT: splited[24],
-            DRINK_MAX: parseFloat(splited[25]).toFixed(2),
-            CIGAR_CNCT: splited[26],
-            CIGAR_MAX: parseFloat(splited[27]).toFixed(2),
-            SEX_CNCT: splited[28]
+          if(splited[0] != "") {
+            let tmpjson = {
+              InTime: splited[0],
+              SEXNUM: parseFloat(splited[1]).toFixed(2),
+              CITYCODE: parseFloat(splited[2]).toFixed(2),
+              AGECODE: parseFloat(splited[3]).toFixed(2),
+              HEIGHT_MIN: parseFloat(splited[4]).toFixed(2),
+              HEIGHT_MAX: parseFloat(splited[5]).toFixed(2),
+              HEIGHT_AVG: parseFloat(splited[6]).toFixed(2),
+              HEIGHT_DSTD: parseFloat(splited[7]).toFixed(2),
+              WEIGHT_MIN: parseFloat(splited[8]).toFixed(2),
+              WEIGHT_MAX: parseFloat(splited[9]).toFixed(2),
+              WEIGHT_AVG: parseFloat(splited[10]).toFixed(2),
+              WEIGHT_DSTD: parseFloat(splited[11]).toFixed(2),
+              BLOODSUGAR_MIN: parseFloat(splited[12]).toFixed(2),
+              BLOODSUGAR_MAX: parseFloat(splited[13]).toFixed(2),
+              BLOODSUGAR_AVG: parseFloat(splited[14]).toFixed(2),
+              BLOODSUGAR_DSTD: parseFloat(splited[15]).toFixed(2),
+              SBP_MIN: parseFloat(splited[16]).toFixed(2),
+              SBP_MAX: parseFloat(splited[17]).toFixed(2),
+              SBP_AVG: parseFloat(splited[18]).toFixed(2),
+              SBP_DSTD: parseFloat(splited[19]).toFixed(2),
+              DBP_MIN: parseFloat(splited[20]).toFixed(2),
+              DBP_MAX: parseFloat(splited[21]).toFixed(2),
+              DBP_AVG: parseFloat(splited[22]).toFixed(2),
+              DBP_DSTD: parseFloat(splited[23]).toFixed(2),
+              DRINK_CNCT: splited[24],
+              DRINK_MAX: parseFloat(splited[25]).toFixed(2),
+              CIGAR_CNCT: splited[26],
+              CIGAR_MAX: parseFloat(splited[27]).toFixed(2),
+              SEX_CNCT: splited[28]
+            }
+            state.newDataSetObj.push(tmpjson);            
           }
-          state.newDataSetObj.push(tmpjson);
         }
         for (let i=0;i<tmpFailedResult.length;i++) {
           state.failedResult.push(tmpFailedResult[i]);

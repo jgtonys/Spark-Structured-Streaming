@@ -77,21 +77,11 @@ export default {
       this.$store.commit('updateAppLog', {
         value: data
       });
-      /*this.$store.commit('updateNewDataSet', {
-        value: data
-      });*/
     },
     result(data) {
-      /*
-      this.$store.commit('updateConsumerData', {
-        value: JSON.parse(data.value) // value: data
-      });*/
-
-      // for test
       this.$store.commit('updateNewDataSet', {
         value: data.value
       });
-      //
     },
     failedResult(data) {
       this.$store.commit('updateTmpFailedResult', {
