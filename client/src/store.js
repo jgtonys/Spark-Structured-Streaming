@@ -472,7 +472,7 @@ export const store = new Vuex.Store({
     resultDataPush: function(state, payload) {  // topic delimiter 로 보내라는 신호가 왔을 때
         let tmpResult = state.tmpNewDataSetObj;
         let tmpFailedResult = state.tmpFailedResult;
-        let resultPercent = 3*tmpResult.length // ((3*tmpResult.length) / 10)
+        let resultPercent = ((3*tmpResult.length) / 5) // ((3*tmpResult.length) / 10)
         //console.log("length: " + resultPercent + "%");
         //console.log("failed_length: " + 100-resultPercent + "%");
 
