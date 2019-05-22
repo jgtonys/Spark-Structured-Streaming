@@ -93,7 +93,8 @@ export const store = new Vuex.Store({
     consumerData: {},
     newDataSet: {
       "success" : [],
-      "fail" : []
+      "fail" : [],
+      "success_regroup" : []
     },
     tmpNewDataSetObj: [], //step4 result data 임시저장장소
     newDataSetObj: [],  //step4 result data
@@ -101,6 +102,7 @@ export const store = new Vuex.Store({
     failedResult: [],
     tmpOriginalData: [],
     originalData: [],
+    tmpTunningData: [],
     tmpChartData: {}
   },
   getters: {
@@ -472,13 +474,19 @@ export const store = new Vuex.Store({
     resultDataPush: function(state, payload) {  // topic delimiter 로 보내라는 신호가 왔을 때
         let tmpResult = state.tmpNewDataSetObj;
         let tmpFailedResult = state.tmpFailedResult;
-        let resultPercent = ((3*tmpResult.length) / 20) // ((3*tmpResult.length) / 10)
+        let tmpTunning = state.tmpTunningData;
+        let resultPercent = ((3*tmpResult.length) / 10) // ((3*tmpResult.length) / 10)
+        let resultTunning = ((3*tmpTunning.length) / 10)
         //console.log("length: " + resultPercent + "%");
         //console.log("failed_length: " + 100-resultPercent + "%");
 
         state.newDataSet.success.push({
           x: Date.now(),
           y: resultPercent // 대그룹화 성공한 개수 (잔존데이터)
+        });
+        state.newDataSet.success_regroup.push({
+          x: Date.now(),
+          y: resultTunning // 대그룹화 성공한 개수 (잔존데이터)
         });
         state.newDataSet.fail.push({
           x: Date.now(),
@@ -526,9 +534,13 @@ export const store = new Vuex.Store({
 
         state.tmpNewDataSetObj = [];
         state.tmpFailedResult = [];
+        state.tmpTunningData = [];
     },
     tmpOriginalDataPush: function(state, payload) {
       state.tmpOriginalData.push(payload.value);
+    },
+    tmpTunningDataPush: function(state, payload) {
+      state.tmpTunningData.push(payload.value);
     },
     originalDataPush: function(state, payload) {
       let tmpData = state.tmpOriginalData;

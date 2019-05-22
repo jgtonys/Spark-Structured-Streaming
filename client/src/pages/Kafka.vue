@@ -87,6 +87,7 @@ export default {
       this.$socket.emit('failedResult',"step4_2");
       this.$socket.emit('delimiter',"delimiter");
       this.$socket.emit('original',"step2");
+      this.$socket.emit('tunning',"step4_tunning");
       this.$store.commit('setKafkaConsumer');
     }
   },

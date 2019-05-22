@@ -1,7 +1,6 @@
 <template>
 <div>
   <!--Stats cards-->
-
   <div class="row mb-3">
     <div class="col-md-4 col-4">
       <stats-card>
@@ -35,7 +34,6 @@
             </v-btn>
           </v-card-actions>
       </v-card>
-
     </div>
   </div>
 

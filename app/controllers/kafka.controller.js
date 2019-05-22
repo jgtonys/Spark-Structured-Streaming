@@ -9,7 +9,6 @@ let testJson = require('../../config/testJson');
 var producer;
 
 
-
 module.exports.startZookeeper = (req, res, next) => {
   flag = false;
   console.log("Kafka-Zookeeper Start!");

@@ -19,6 +19,10 @@ module.exports = (io) => {
         io.emit('application', data);
       });
 
+      bashscript.stdout.on('end', function(data) {
+        console.log("Application ended.");
+      });
+
       bashscript.stderr.on('data', function(data) {
         io.emit('application', data);
       });
@@ -117,6 +121,30 @@ module.exports = (io) => {
 
       consumer.on('offsetOutOfRange', function(err) {
         io.emit('original', err);
+      })
+    });
+
+    socket.on('tunning', (payload) => {
+      console.log("Kafka-origial-tunning Listen at topic : ",payload);
+      var Consumer = kafka.Consumer;
+      var client = new kafka.KafkaClient();
+      var consumer = new Consumer(client, [{
+        topic: payload,
+        partition: 0
+      }], {
+        autoCommit: true
+      });
+
+      consumer.on('message', function(message) {
+        io.emit('tunning', message);
+      });
+
+      consumer.on('error', function(err) {
+        io.emit('tunning', err);
+      })
+
+      consumer.on('offsetOutOfRange', function(err) {
+        io.emit('tunning', err);
       })
     });
   });

@@ -97,6 +97,11 @@ export default {
       this.$store.commit('tmpOriginalDataPush', {
         value: data.value
       });
+    },
+    tunning(data) {
+      this.$store.commit('tmpTunningDataPush', {
+        value: data.value
+      });
     }
   },
   methods: {

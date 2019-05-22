@@ -39,6 +39,9 @@ export default {
                   if(key==1) {
                     dataset.data = this.newDataSet.fail;
                   }
+                  if(key==2) {
+                    dataset.data = this.newDataSet.success_regroup;
+                  }
 
                 });
               },
@@ -98,7 +101,16 @@ export default {
           fill: false,
           cubicInterpolationMode: 'monotone',
           data: []
-        }]
+        },
+        {
+          label: 'success_regroup',
+          backgroundColor: "green",
+          borderColor: "green",
+          fill: false,
+          cubicInterpolationMode: 'monotone',
+          data: []
+        }
+      ]
       }
     }
   },
