@@ -484,9 +484,9 @@ export const store = new Vuex.Store({
         let tmpResult = state.tmpNewDataSetObj;
         let tmpFailedResult = state.tmpFailedResult;
         let tmpTunning = state.tmpTunningData;
-        let resultPercent = ((3*tmpResult.length) / 10) // ((3*tmpResult.length) / 10)
-        let resultTunning = ((3*tmpTunning.length) / 10)
-        //console.log("length: " + resultPercent + "%");
+        let resultPercent = ((3*tmpResult.length) / 10); // ((3*tmpResult.length) / 10)
+        let resultTunning = ((3*tmpTunning.length) / 10);
+        console.log("length: " + resultPercent + "%");
         //console.log("failed_length: " + 100-resultPercent + "%");
 
         state.newDataSet.success.push({
@@ -499,12 +499,12 @@ export const store = new Vuex.Store({
         });
         state.newDataSet.fail.push({
           x: Date.now(),
-          y: 100-resultPercent-resultTunning // 대그룹화 성공하지 못한 개수 (flag 데이터)
+          y: 100-(resultPercent+resultTunning) // 대그룹화 성공하지 못한 개수 (flag 데이터)
         });
 
         state.graphLength += 1;
-        state.sumOfRemnant += resultPercent + resultTunning;
-        state.sumOfNonRemnant += 100 - (resultPercent + resultTunning);
+        state.sumOfRemnant += (resultPercent + resultTunning);
+        state.sumOfNonRemnant += (100 - (resultPercent + resultTunning));
 
         for (let i=0;i<tmpResult.length;i++) {
           let splited = tmpResult[i].split(',');
@@ -555,7 +555,6 @@ export const store = new Vuex.Store({
     tmpTunningDataPush: function(state, payload) {
       state.tmpTunningData.push(payload.value);
       console.log("HEY");
-      console.log(state.tmpTunningData);
     },
     originalDataPush: function(state, payload) {
       let tmpData = state.tmpOriginalData;

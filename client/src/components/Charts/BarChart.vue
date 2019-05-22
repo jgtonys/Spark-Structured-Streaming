@@ -1,7 +1,5 @@
 <template>
 <div class="small">
-  <p>{{ remnantPercent }}</p>
-  <p>{{ nonremnantPercent }}</p>
   <vertical-bar :chart-data="datacollection" :options="chartoption"></vertical-bar>
 </div>
 </template>
@@ -64,7 +62,7 @@ export default {
   methods: {
     fillData() {
       this.datacollection = {
-        labels: ['추상화 성공률','추상화 실패률'],
+        labels: ['결과(%)'],
         datasets: [{
           label: '추상화 성공률',
           backgroundColor: 'blue',
