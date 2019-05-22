@@ -484,8 +484,8 @@ export const store = new Vuex.Store({
         let tmpResult = state.tmpNewDataSetObj;
         let tmpFailedResult = state.tmpFailedResult;
         let tmpTunning = state.tmpTunningData;
-        let resultPercent = ((3*tmpResult.length) / 10); // ((3*tmpResult.length) / 10)
-        let resultTunning = ((3*tmpTunning.length) / 10);
+        let resultPercent = ((3*tmpResult.length) / 20); // ((3*tmpResult.length) / 10)
+        let resultTunning = ((3*tmpTunning.length) / 20);
 
         console.log("length: " + resultPercent + "%");
         //console.log("failed_length: " + 100-resultPercent + "%");
