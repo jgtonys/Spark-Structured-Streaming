@@ -51,7 +51,8 @@ export default {
           mode: 'nearest',
           intersect: false
         },
-        maintainAspectRatio:false
+        maintainAspectRatio:false,
+        height: 200
       }
     }
   },
@@ -61,20 +62,30 @@ export default {
   methods: {
     fillData() {
       this.datacollection = {
+        labels: ['추상화 성공률','추상화 실패률'],
         datasets: [{
-          label: '잔존율',
-          backgroundColor: '#f87979',
+          label: '추상화 성공률',
+          backgroundColor: 'blue',
           pointBackgroundColor: 'white',
           borderWidth: 1,
-          pointBorderColor: '#249EBF',
-          data: [40]
+          pointBorderColor: 'blue',
+          data: this.remnantPercent
+        },
+        {
+          label: '추상화 실패율',
+          backgroundColor: 'green',
+          pointBackgroundColor: 'white',
+          borderWidth: 1,
+          pointBorderColor: 'green',
+          data: this.nonremnantPercent
         }
       ]
       }
     }
-  }/*,
+  },
   computed: mapGetters({
-    newDataSet: 'getNewDataSet'
-  })*/
+    remnantPercent: 'getRemnantPercent',
+    nonremnantPercent: 'getNonRemnantPercent'
+  })
 }
 </script>

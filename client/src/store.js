@@ -105,6 +105,7 @@ export const store = new Vuex.Store({
     tmpTunningData: [],
     graphLength: 0,
     sumOfRemnant: 0,
+    sumOfNonRemnant: 0,
     tmpChartData: {}
   },
   getters: {
@@ -170,6 +171,12 @@ export const store = new Vuex.Store({
     },
     getInputFiles: function(state) {
       return state.inputFiles;
+    },
+    getRemnantPercent: function(state) {
+      return state.sumOfRemnant / state.graphLength;
+    },
+    getNonRemnantPercent: function(state) {
+      return state.sumOfNonRemnant / state.graphLength;
     }
   },
   mutations: {
@@ -483,7 +490,8 @@ export const store = new Vuex.Store({
         //console.log("failed_length: " + 100-resultPercent + "%");
 
         state.graphLength += 1;
-        state.sumOfRemnant += resultPercent;
+        state.sumOfRemnant += resultPercent + resultTunning;
+        state.sumOfNonRemnant += 100 - (resultPercent + resultTunning);
 
 
         state.newDataSet.success.push({
