@@ -496,7 +496,7 @@ export const store = new Vuex.Store({
         });
         state.newDataSet.fail.push({
           x: Date.now(),
-          y: 100-resultPercent // 대그룹화 성공하지 못한 개수 (flag 데이터)
+          y: 100-resultPercent-resultTunning // 대그룹화 성공하지 못한 개수 (flag 데이터)
         });
 
         for (let i=0;i<tmpResult.length;i++) {

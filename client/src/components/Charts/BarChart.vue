@@ -22,7 +22,7 @@ export default {
       chartoption: {
         title: {
           display: true,
-          text: '결과 잔존률 그래프'
+          text: '실시간 정보'
         },
         responsive: true,
         scales: {
@@ -67,7 +67,7 @@ export default {
           pointBackgroundColor: 'white',
           borderWidth: 1,
           pointBorderColor: '#249EBF',
-          data: 40
+          data: [40]
         }
       ]
       }
