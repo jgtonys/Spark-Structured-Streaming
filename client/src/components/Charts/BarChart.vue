@@ -1,6 +1,6 @@
 <template>
 <div class="small">
-  <vertical-bar :chart-data="datacollection" :options="chartoption"></vertical-bar>
+  <vertical-bar :chart-data="datacollection" :options="chartoption" :signal="signal"></vertical-bar>
 </div>
 </template>
 
@@ -18,7 +18,8 @@ export default {
   },
   data() {
     return {
-      datacollection: null,
+      signal: 0,
+      datacollection: {},
       chartoption: {
         title: {
           display: true,
@@ -57,7 +58,7 @@ export default {
     }
   },
   mounted() {
-    this.fillData()
+    this.fillData();
   },
   methods: {
     fillData() {
@@ -85,7 +86,13 @@ export default {
   },
   computed: mapGetters({
     remnantPercent: 'getRemnantPercent',
-    nonremnantPercent: 'getNonRemnantPercent'
-  })
+    nonremnantPercent: 'getNonRemnantPercent',
+  }),
+  watch: {
+    remnantPercent() {
+      this.fillData();
+      this.signal += 1;
+    }
+  }
 }
 </script>
