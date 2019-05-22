@@ -103,6 +103,8 @@ export const store = new Vuex.Store({
     tmpOriginalData: [],
     originalData: [],
     tmpTunningData: [],
+    graphLength: 0,
+    sumOfRemnant: 0,
     tmpChartData: {}
   },
   getters: {
@@ -480,6 +482,10 @@ export const store = new Vuex.Store({
         //console.log("length: " + resultPercent + "%");
         //console.log("failed_length: " + 100-resultPercent + "%");
 
+        state.graphLength += 1;
+        state.sumOfRemnant += resultPercent;
+
+
         state.newDataSet.success.push({
           x: Date.now(),
           y: resultPercent // 대그룹화 성공한 개수 (잔존데이터)
@@ -541,6 +547,8 @@ export const store = new Vuex.Store({
     },
     tmpTunningDataPush: function(state, payload) {
       state.tmpTunningData.push(payload.value);
+      console.log("HEY");
+      console.log(state.tmpTunningData);
     },
     originalDataPush: function(state, payload) {
       let tmpData = state.tmpOriginalData;

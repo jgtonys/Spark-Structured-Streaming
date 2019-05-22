@@ -9,24 +9,16 @@
       </card>
     </div>
   </div>
-<!--
+
   <div class="row">
-    <table class="table table-dark">
-      <thead>
-        <tr>
-          <th scope="col">#</th>
-          <th scope="col">Data</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="(d,i) in dataSetObj">
-          <th scope="row">{{ i }}</th>
-          <td>{{ d }}</td>
-        </tr>
-      </tbody>
-    </table>
+    <div class="col-12">
+      <card>
+        <div class="card-body">
+          <bar-chart/>
+        </div>
+      </card>
+    </div>
   </div>
--->
 
   <div class="row">
     <div class="col-12">
@@ -39,14 +31,15 @@
 </template>
 <script>
 import {
-  InputChart
+  InputChart, BarChart
 } from "@/components/index";
 import {
   mapGetters
 } from 'vuex';
 export default {
   components: {
-    InputChart
+    InputChart,
+    BarChart
   },
   data() {
     return {
