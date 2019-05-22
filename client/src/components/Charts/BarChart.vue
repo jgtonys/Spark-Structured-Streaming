@@ -1,5 +1,7 @@
 <template>
 <div class="small">
+  <p>{{ remnantPercent }}</p>
+  <p>{{ nonremnantPercent }}</p>
   <vertical-bar :chart-data="datacollection" :options="chartoption"></vertical-bar>
 </div>
 </template>
