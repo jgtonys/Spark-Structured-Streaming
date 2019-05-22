@@ -484,8 +484,8 @@ export const store = new Vuex.Store({
         let tmpResult = state.tmpNewDataSetObj;
         let tmpFailedResult = state.tmpFailedResult;
         let tmpTunning = state.tmpTunningData;
-        let resultPercent = ((3*tmpResult.length) / 10); // ((3*tmpResult.length) / 10)
-        let resultTunning = ((3*tmpTunning.length) / 10);
+        let resultPercent = ((3*tmpResult.length) / 50); // ((3*tmpResult.length) / 10)
+        let resultTunning = ((3*tmpTunning.length) / 50);
 
         console.log("length: " + resultPercent + "%");
         //console.log("failed_length: " + 100-resultPercent + "%");
@@ -494,10 +494,12 @@ export const store = new Vuex.Store({
           x: Date.now(),
           y: resultPercent // 대그룹화 성공한 개수 (잔존데이터)
         });
+
         state.newDataSet.success_regroup.push({
           x: Date.now(),
           y: resultTunning // 대그룹화 성공한 개수 (잔존데이터)
         });
+
         state.newDataSet.fail.push({
           x: Date.now(),
           y: 100-(resultPercent+resultTunning) // 대그룹화 성공하지 못한 개수 (flag 데이터)
