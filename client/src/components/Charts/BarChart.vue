@@ -74,10 +74,10 @@ export default {
         },
         {
           label: '추상화 실패율',
-          backgroundColor: 'green',
+          backgroundColor: 'red',
           pointBackgroundColor: 'white',
           borderWidth: 1,
-          pointBorderColor: 'green',
+          pointBorderColor: 'red',
           data: [this.nonremnantPercent]
         }
       ]
