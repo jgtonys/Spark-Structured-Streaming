@@ -88,16 +88,15 @@ export default {
       this.datacollection = {
         datasets: [{
           label: 'success',
-          backgroundColor: "white",
-          borderColor: "red",
+          backgroundColor: "blue",
+          borderColor: "blue",
           fill: false,
-          lineTension: 0,
-          borderDash: [8, 4],
+          cubicInterpolationMode: 'monotone',
           data: []
         }, {
           label: 'fail',
-          backgroundColor: "blue",
-          borderColor: "blue",
+          backgroundColor: "red",
+          borderColor: "red",
           fill: false,
           cubicInterpolationMode: 'monotone',
           data: []
