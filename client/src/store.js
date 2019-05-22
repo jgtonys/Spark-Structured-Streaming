@@ -489,11 +489,6 @@ export const store = new Vuex.Store({
         //console.log("length: " + resultPercent + "%");
         //console.log("failed_length: " + 100-resultPercent + "%");
 
-        state.graphLength += 1;
-        state.sumOfRemnant += resultPercent + resultTunning;
-        state.sumOfNonRemnant += 100 - (resultPercent + resultTunning);
-
-
         state.newDataSet.success.push({
           x: Date.now(),
           y: resultPercent // 대그룹화 성공한 개수 (잔존데이터)
@@ -506,6 +501,10 @@ export const store = new Vuex.Store({
           x: Date.now(),
           y: 100-resultPercent-resultTunning // 대그룹화 성공하지 못한 개수 (flag 데이터)
         });
+
+        state.graphLength += 1;
+        state.sumOfRemnant += resultPercent + resultTunning;
+        state.sumOfNonRemnant += 100 - (resultPercent + resultTunning);
 
         for (let i=0;i<tmpResult.length;i++) {
           let splited = tmpResult[i].split(',');

@@ -69,7 +69,7 @@ export default {
           pointBackgroundColor: 'white',
           borderWidth: 1,
           pointBorderColor: 'blue',
-          data: this.remnantPercent
+          data: [this.remnantPercent]
         },
         {
           label: '추상화 실패율',
@@ -77,7 +77,7 @@ export default {
           pointBackgroundColor: 'white',
           borderWidth: 1,
           pointBorderColor: 'green',
-          data: this.nonremnantPercent
+          data: [this.nonremnantPercent]
         }
       ]
       }
