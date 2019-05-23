@@ -6,7 +6,7 @@ module.exports = (io) => {
     socket.on('application', (options, input, basecwd) => {
       console.log(options);
       //var cmd = options.baseMethod + " --class " + options.class + " " + options.targetJar + " emp1.csv";
-      var cmd = "python input.py " + input + " 10"
+      var cmd = "python input_new.py " + input + " 10 2000"
 
       console.log(cmd);
 
