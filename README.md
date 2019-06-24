@@ -1,14 +1,5 @@
 ## Monitoring Page Manual
 
-*현재 서버에 모두 설치와 빌드가 되어있는 상황입니다*
-
-`/Web/Spark-Structured-Streaming/` 폴더에 존재합니다.
-
-아래의 설치와 빌드없이 `npm start` 로 서버 (http://165.132.105.28:3000/) 에서 확인 가능합니다.
-
-자세한 실행법은 아래와 같습니다.
-
-
 
 ### 설치법
 
